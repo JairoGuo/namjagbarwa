@@ -31,8 +31,6 @@
         <junit.version>5.8.2</junit.version>
     </properties>
 
-
-
     <dependencyManagement>
         <dependencies>
 
@@ -118,4 +116,5 @@
             <url>https://repo.spring.io/milestone</url>
         </pluginRepository>
     </pluginRepositories>
+
 </project>
