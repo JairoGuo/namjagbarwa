@@ -22,6 +22,9 @@
 
         <!-- 三方库 -->
         <spring-boot.version>2.6.8</spring-boot.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+
+        <hutool.version>5.7.20</hutool.version>
 
         <!-- 测试 -->
 
@@ -30,13 +33,21 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- 一方库 =================================================== -->
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>common</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.jairoguo</groupId>
                 <artifactId>exception</artifactId>
                 <version>${infra.version}</version>
             </dependency>
 
-            <!-- 三方库 -->
+            <!-- 三方库 =================================================== -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -45,7 +56,22 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- 测试依赖 -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-bom</artifactId>
+                <version>${hutool.version}</version>
+                <type>pom</type>
+                <!-- 注意这里是import -->
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 测试依赖 =================================================== -->
 
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
