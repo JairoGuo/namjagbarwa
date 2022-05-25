@@ -6,12 +6,55 @@
 
     <groupId>com.jairoguo</groupId>
     <artifactId>namjagbarwa</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>infra</module>
+        <module>modules</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+
+        <!-- 一方库 -->
+        <infra.version>1.0-SNAPSHOT</infra.version>
+
+        <!-- 三方库 -->
+        <spring-boot.version>2.6.8</spring-boot.version>
+
+        <!-- 测试 -->
+
+        <junit.version>5.8.2</junit.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>exception</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
+            <!-- 三方库 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- 测试依赖 -->
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <repositories>
         <repository>
