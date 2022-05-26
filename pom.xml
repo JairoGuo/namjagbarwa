@@ -21,7 +21,7 @@
         <infra.version>1.0-SNAPSHOT</infra.version>
 
         <!-- 三方库 -->
-        <spring-boot.version>2.6.8</spring-boot.version>
+        <spring-boot.version>3.0.0-M3</spring-boot.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
 
         <hutool.version>5.7.20</hutool.version>
