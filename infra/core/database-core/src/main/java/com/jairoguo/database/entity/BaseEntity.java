@@ -20,9 +20,9 @@ public abstract class BaseEntity implements Serializable {
     @Id
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @Column(length = 20)
-    private Long id;
+    protected Long id;
 
-    private boolean deleted;
+    protected boolean deleted;
 
     @TableField(fill = FieldFill.INSERT)
     protected LocalDateTime createTime;
