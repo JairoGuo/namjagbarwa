@@ -11,7 +11,7 @@ import com.jairoguo.account.infra.repository.po.AccountPO;
 import com.jairoguo.account.infra.repository.po.UserPO;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 
 /**

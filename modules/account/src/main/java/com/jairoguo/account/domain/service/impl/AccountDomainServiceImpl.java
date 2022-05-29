@@ -6,7 +6,7 @@ import com.jairoguo.account.domain.service.AccountDomainService;
 import com.jairoguo.common.result.Result;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 import java.util.Optional;
 
 /**
