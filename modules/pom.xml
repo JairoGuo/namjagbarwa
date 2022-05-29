@@ -11,6 +11,11 @@
 
     <artifactId>modules</artifactId>
     <packaging>pom</packaging>
+
+    <modules>
+        <module>account</module>
+    </modules>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
