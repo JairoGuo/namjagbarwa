@@ -23,8 +23,13 @@
         <!-- 三方库 -->
         <spring-boot.version>3.0.0-M3</spring-boot.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <shardingsphere.version>5.1.1</shardingsphere.version>
+        <druid.version>1.2.8</druid.version>
 
         <hutool.version>5.7.20</hutool.version>
+        <lombok.version>1.18.16</lombok.version>
+        <mapstruct.version>1.5.0.RC1</mapstruct.version>
+
 
         <!-- 测试 -->
 
@@ -47,6 +52,24 @@
                 <version>${infra.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>handler</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>database-core</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>validated-core</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
             <!-- 三方库 =================================================== -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -63,12 +86,42 @@
             </dependency>
 
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-bom</artifactId>
                 <version>${hutool.version}</version>
                 <type>pom</type>
                 <!-- 注意这里是import -->
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <!-- 测试依赖 =================================================== -->
