@@ -207,6 +207,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/modules/account/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/sms/pom.xml" />
       </list>
     </option>
   </component>
