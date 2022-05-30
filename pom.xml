@@ -50,6 +50,12 @@
 
             <dependency>
                 <groupId>com.jairoguo</groupId>
+                <artifactId>config</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
                 <artifactId>exception</artifactId>
                 <version>${infra.version}</version>
             </dependency>
@@ -63,6 +69,12 @@
             <dependency>
                 <groupId>com.jairoguo</groupId>
                 <artifactId>database-core</artifactId>
+                <version>${infra.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>redis-core</artifactId>
                 <version>${infra.version}</version>
             </dependency>
 
