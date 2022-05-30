@@ -1,0 +1,10 @@
+server:
+  port: 8802
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: sms
+  redis:
+    host: 192.168.3.127
