@@ -2,10 +2,15 @@ server:
   port: 8801
 
 spring:
+  application:
+    name: account
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  cloud:
+    nacos:
+      server-addr: 192.168.3.127:8848
   shardingsphere:
     datasource:
       names: account
@@ -43,3 +48,6 @@ spring:
           column: id
           key-generator-name: SNOWFLAKE
         default-sharding-column: id
+feign:
+  httpclient:
+    connection-timeout: 5000
