@@ -11,4 +11,6 @@ public interface CodeCacheRepository extends Repository<PhoneCode, Phone> {
     void save(PhoneCode phoneCode, Long time, TimeUnit timeUnit);
 
     String getCode(PhoneCode phoneCode);
+
+    void delete(PhoneCode phoneCode);
 }
