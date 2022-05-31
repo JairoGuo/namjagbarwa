@@ -8,3 +8,6 @@ spring:
     name: sms
   redis:
     host: 192.168.3.127
+  cloud:
+    nacos:
+      server-addr: 192.168.3.127:8848
