@@ -34,16 +34,7 @@ public class AccountDomainServiceImpl implements AccountDomainService {
     }
 
     @Override
-    public Account verify(Account account) {
-        Account accountRlt = accountRepository.findById(account.getOpenCode());
-        if (Optional.ofNullable(accountRlt).isPresent()) {
-            Boolean passwordStatus = accountRlt.getUser().comparePassword(account.getUser().getPassword());
-            if (Boolean.FALSE.equals(passwordStatus)) {
-                Result.fail("密码不正确");
-            }
-        } else {
-            Result.fail("账户不存在");
-        }
-        return accountRlt;
+    public Account getAccount(Account account) {
+        return accountRepository.findById(account.getOpenCode());
     }
 }
