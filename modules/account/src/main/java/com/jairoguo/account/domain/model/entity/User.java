@@ -20,7 +20,7 @@ public class User implements Entity<UserId> {
     private String password;
     private String salt;
 
-    final Digester digester = new Digester(DigestAlgorithm.SHA512);
+    private final Digester digester = new Digester(DigestAlgorithm.SHA512);
 
     private User() {
     }

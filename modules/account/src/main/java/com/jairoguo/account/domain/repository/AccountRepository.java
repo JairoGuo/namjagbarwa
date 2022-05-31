@@ -8,4 +8,6 @@ import com.jairoguo.common.base.Repository;
  * @author Jairo Guo
  */
 public interface AccountRepository extends Repository<Account, OpenCode> {
+
+
 }

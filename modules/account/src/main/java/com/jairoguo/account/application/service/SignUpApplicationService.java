@@ -46,6 +46,9 @@ public class SignUpApplicationService implements ApplicationService {
             default -> Result.fail("不可知的注册类型");
         }
 
+        // TODO: 生成用户头像
+
+
 
         return account;
     }
