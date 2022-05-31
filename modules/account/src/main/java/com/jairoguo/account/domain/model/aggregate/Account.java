@@ -1,6 +1,7 @@
 package com.jairoguo.account.domain.model.aggregate;
 
 import com.jairoguo.account.domain.model.entity.User;
+import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.account.domain.model.entity.id.OpenCode;
 import com.jairoguo.common.base.AggregateRoot;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import lombok.ToString;
 public class Account implements AggregateRoot<OpenCode> {
     private OpenCode openCode;
     private User user;
+
+    private UserInfo userInfo;
 
     private Account() {
     }
@@ -25,6 +28,10 @@ public class Account implements AggregateRoot<OpenCode> {
 
     public void bindUser(User user) {
         this.user = user;
+    }
+
+    public void bindUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     public void setOpenCode(OpenCode openCode) {

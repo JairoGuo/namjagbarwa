@@ -2,12 +2,16 @@ package com.jairoguo.account.infra.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jairoguo.account.domain.model.aggregate.Account;
+import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.account.domain.model.entity.id.OpenCode;
+import com.jairoguo.account.domain.model.entity.id.UserId;
 import com.jairoguo.account.domain.repository.AccountRepository;
 import com.jairoguo.account.infra.repository.assembler.AccountRepositoryAssembler;
 import com.jairoguo.account.infra.repository.mapper.AccountMapper;
+import com.jairoguo.account.infra.repository.mapper.UserInfoMapper;
 import com.jairoguo.account.infra.repository.mapper.UserMapper;
 import com.jairoguo.account.infra.repository.po.AccountPO;
+import com.jairoguo.account.infra.repository.po.UserInfoPO;
 import com.jairoguo.account.infra.repository.po.UserPO;
 import org.springframework.stereotype.Repository;
 
@@ -27,15 +31,30 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private UserInfoMapper userInfoMapper;
+
     @Override
     public Boolean save(Account aggregate) {
         UserPO userPO = null;
+        UserInfoPO userInfoPO = null;
+
         AccountPO accountPO = AccountRepositoryAssembler.INSTANCE.toAccountPO(aggregate);
         if (aggregate.getUser().getUserId() == null) {
             userPO = AccountRepositoryAssembler.INSTANCE.toUserPO(aggregate);
             userMapper.insert(userPO);
+            userInfoPO = new UserInfoPO();
+            userInfoPO.setUserId(userPO.getId());
+            userInfoMapper.insert(userInfoPO);
             accountPO.setUserId(userPO.getId());
             aggregate.getUser().bindUserId(userPO.getId());
+
+
+            UserInfo userInfo = UserInfo.create();
+            UserId userId = UserId.create();
+            userId.setId(userPO.getId());
+            userInfo.setUserId(userId);
+            aggregate.bindUserInfo(userInfo);
         }
 
         return accountMapper.insert(accountPO) == 1;
