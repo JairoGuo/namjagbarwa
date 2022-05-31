@@ -33,6 +33,14 @@ public class ResultBody<T> implements Serializable {
      */
     private final transient Object info;
 
+    public ResultBody() {
+        this.code = ResultCodeEnum.OK.getCode();
+        this.msg = ResultCodeEnum.OK.getMsg();
+        this.success = true;
+        this.data = null;
+        this.info = null;
+    }
+
     public ResultBody(Builder<T> builder) {
         this.code = builder.code;
         this.msg = builder.msg;
