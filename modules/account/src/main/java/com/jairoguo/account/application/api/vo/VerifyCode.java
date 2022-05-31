@@ -1,6 +1,6 @@
 package com.jairoguo.account.application.api.vo;
 
-public record VerifyCodeVO(
+public record VerifyCode(
         String phone,
         Boolean status
 ) {
