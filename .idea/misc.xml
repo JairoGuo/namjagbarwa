@@ -209,6 +209,7 @@
         <option value="$PROJECT_DIR$/modules/account/pom.xml" />
         <option value="$PROJECT_DIR$/modules/sms/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/storage/pom.xml" />
       </list>
     </option>
   </component>
