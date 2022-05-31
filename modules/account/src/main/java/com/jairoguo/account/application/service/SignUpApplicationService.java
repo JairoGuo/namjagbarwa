@@ -1,14 +1,12 @@
 package com.jairoguo.account.application.service;
 
-import com.jairoguo.account.application.api.SmsCodeApi;
 import com.jairoguo.account.application.api.dto.VerifyCodeDTO;
-import com.jairoguo.account.application.api.vo.VerifyCodeVO;
+import com.jairoguo.account.application.api.service.SmsCodeApiService;
 import com.jairoguo.account.application.bo.SignUpBO;
 import com.jairoguo.account.domain.model.aggregate.Account;
 import com.jairoguo.account.domain.service.AccountDomainService;
 import com.jairoguo.common.base.ApplicationService;
 import com.jairoguo.common.result.Result;
-import com.jairoguo.common.result.ResultBody;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +22,7 @@ public class SignUpApplicationService implements ApplicationService {
     private AccountDomainService accountDomainService;
 
     @Resource
-    private SmsCodeApi smsCodeApi;
+    private SmsCodeApiService smsCodeApiService;
 
     @Transactional(rollbackFor = Exception.class)
     public Account register(SignUpBO signUpBO) {
@@ -40,15 +38,12 @@ public class SignUpApplicationService implements ApplicationService {
             case PHONE -> {
                 VerifyCodeDTO verifyCodeDTO =
                         new VerifyCodeDTO(signUpBO.getAccount().getOpenCode().getOpenCode(), "REGISTER", signUpBO.getSmsCode());
-                ResultBody<VerifyCodeVO> verifyCodeVO = smsCodeApi.verifySmsCode(verifyCodeDTO);
-                if (Boolean.FALSE.equals(verifyCodeVO.getSuccess()) || Boolean.FALSE.equals(verifyCodeVO.getData().status())) {
-                    Result.fail(verifyCodeVO.getMsg());
-                }
-
+                smsCodeApiService.verifySmsCode(verifyCodeDTO);
+                signUpBO.getAccount().getUser().setState(true);
                 account = accountDomainService.createAccount(signUpBO.getAccount());
 
             }
-            default -> {}
+            default -> Result.fail("不可知的注册类型");
         }
 
 

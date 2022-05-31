@@ -1,5 +1,7 @@
 package com.jairoguo.account.application.service;
 
+import com.jairoguo.account.application.api.dto.VerifyCodeDTO;
+import com.jairoguo.account.application.api.service.SmsCodeApiService;
 import com.jairoguo.account.application.bo.SignInBO;
 import com.jairoguo.account.domain.model.aggregate.Account;
 import com.jairoguo.account.domain.service.AccountDomainService;
@@ -18,9 +20,12 @@ public class SignInApplicationService {
     @Resource
     private AccountDomainService accountDomainService;
 
+    @Resource
+    private SmsCodeApiService smsCodeApiService;
+
     @Transactional(rollbackFor = Exception.class)
     public Account login(SignInBO signInBO) {
-        Account account = accountDomainService.getAccount(signInBO.account());
+        Account account = accountDomainService.getAccount(signInBO.getAccount());
         if (account == null) {
             Result.fail("账户不存在");
         } else if (Boolean.TRUE.equals(account.getUser().getState())){
@@ -32,8 +37,8 @@ public class SignInApplicationService {
                     }
                 }
                 case PHONE -> {
-                    // TODO: 验证手机号
-
+                    VerifyCodeDTO verifyCodeDTO = new VerifyCodeDTO(account.getOpenCode().getOpenCode(), "LOG_IN", signInBO.getCode());
+                    smsCodeApiService.verifySmsCode(verifyCodeDTO);
                 }
                 default -> Result.fail("不可知的登录类型");
 
