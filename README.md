@@ -1,3 +1,3 @@
 # namjagbarwa
 
-![](https://img.sonsuz.top/namjagbarwa.jpg)
+![namjagbarwa](https://img.sonsuz.top/namjagbarwa.jpg)
