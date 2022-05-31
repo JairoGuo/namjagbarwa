@@ -57,6 +57,12 @@ public class CodeCacheRepositoryImpl implements CodeCacheRepository {
     }
 
     @Override
+    public void delete(PhoneCode phoneCode) {
+        String key = redisKey.getKey(getUse(phoneCode.getUse()), phoneCode.getPhone().getPhone());
+        redisUtil.delete(key);
+    }
+
+    @Override
     public PhoneCode findById(Phone id) {
         return null;
     }
