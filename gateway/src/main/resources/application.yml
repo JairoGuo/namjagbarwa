@@ -1,0 +1,22 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: 192.168.3.127:8848
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: account
+          uri: lb://account
+          predicates:
+            - Path=/**
+        - id: sms
+          uri: lb://sms
+          predicates:
+            - Path=/**
+
