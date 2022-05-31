@@ -15,5 +15,5 @@ public interface AccountDomainService extends DomainService {
      */
     Account createAccount(Account account);
 
-    Account verify(Account account);
+    Account getAccount(Account account);
 }
