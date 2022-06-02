@@ -1,0 +1,34 @@
+{
+  "properties": [
+    {
+      "name": "storage.huawei.obs.endPoint",
+      "type": "java.lang.String",
+      "description": "Description for storage.huawei.obs.endPoint."
+    },
+    {
+      "name": "storage.huawei.obs.ak",
+      "type": "java.lang.String",
+      "description": "Description for storage.huawei.obs.ak."
+    },
+    {
+      "name": "storage.huawei.obs.sk",
+      "type": "java.lang.String",
+      "description": "Description for storage.huawei.obs.sk."
+    },
+    {
+      "name": "storage.huawei.obs.bucketName",
+      "type": "java.lang.String",
+      "description": "Description for storage.huawei.obs.bucketName."
+    },
+    {
+      "name": "storage.suffix",
+      "type": "java.lang.String",
+      "description": "Description for storage.suffix.",
+      "defaultValue": null
+    },
+    {
+      "name": "storage.type",
+      "type": "java.lang.String",
+      "description": "Description for storage.type."
+    }
+  ] }
