@@ -1,6 +1,7 @@
 package com.jairoguo.account.infra.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jairoguo.account.domain.model.aggregate.Account;
 import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.account.domain.model.entity.id.OpenCode;
@@ -81,5 +82,15 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Boolean update(Account aggregate) {
         return null;
+    }
+
+    @Override
+    public Boolean updateUserInfo(UserInfo userInfo) {
+
+        UserInfoPO userInfoPO = new UserInfoPO();
+        userInfoPO.setAvatar(userInfo.getAvatar());
+        UpdateWrapper<UserInfoPO> userInfoPOUpdateWrapper = new UpdateWrapper<>();
+        userInfoPOUpdateWrapper.lambda().eq(UserInfoPO::getUserId, userInfo.getUserId().getId());
+        return userInfoMapper.update(userInfoPO, userInfoPOUpdateWrapper) == 1;
     }
 }

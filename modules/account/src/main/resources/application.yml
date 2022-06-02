@@ -11,6 +11,14 @@ spring:
   cloud:
     nacos:
       server-addr: 192.168.3.127:8848
+    function:
+      definition: backToAvatar
+    stream:
+      bindings:
+        initAvatar-out-0:
+          destination: init-avatar
+        backToAvatar-in-0:
+          destination: back-avatar
   shardingsphere:
     datasource:
       names: account
@@ -34,6 +42,12 @@ spring:
             sharding-strategy:
               standard:
                 sharding-column: id
+                sharding-algorithm-name: table-mod
+          t_userinfo:
+            actual-data-sources: account
+            sharding-strategy:
+              standard:
+                sharding-column: user_id
                 sharding-algorithm-name: table-mod
         default-table-strategy:
           standard:
