@@ -1,6 +1,7 @@
 package com.jairoguo.account.domain.service;
 
 import com.jairoguo.account.domain.model.aggregate.Account;
+import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.common.base.DomainService;
 
 /**
@@ -16,4 +17,6 @@ public interface AccountDomainService extends DomainService {
     Account createAccount(Account account);
 
     Account getAccount(Account account);
+
+    Boolean updateUserInfo(UserInfo userInfo);
 }

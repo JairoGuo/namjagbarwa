@@ -1,6 +1,7 @@
 package com.jairoguo.account.domain.service.impl;
 
 import com.jairoguo.account.domain.model.aggregate.Account;
+import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.account.domain.repository.AccountRepository;
 import com.jairoguo.account.domain.service.AccountDomainService;
 import com.jairoguo.common.result.Result;
@@ -36,5 +37,10 @@ public class AccountDomainServiceImpl implements AccountDomainService {
     @Override
     public Account getAccount(Account account) {
         return accountRepository.findById(account.getOpenCode());
+    }
+
+    @Override
+    public Boolean updateUserInfo(UserInfo userInfo) {
+        return accountRepository.updateUserInfo(userInfo);
     }
 }

@@ -3,6 +3,7 @@ package com.jairoguo.account.application.service;
 import com.jairoguo.account.application.api.dto.VerifyCodeDTO;
 import com.jairoguo.account.application.api.service.SmsCodeApiService;
 import com.jairoguo.account.application.bo.SignUpBO;
+import com.jairoguo.account.application.event.publish.AvatarPublish;
 import com.jairoguo.account.domain.model.aggregate.Account;
 import com.jairoguo.account.domain.service.AccountDomainService;
 import com.jairoguo.common.base.ApplicationService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * @author Jairo Guo
@@ -23,6 +25,9 @@ public class SignUpApplicationService implements ApplicationService {
 
     @Resource
     private SmsCodeApiService smsCodeApiService;
+
+    @Resource
+    private AvatarPublish avatarPublish;
 
     @Transactional(rollbackFor = Exception.class)
     public Account register(SignUpBO signUpBO) {
@@ -46,7 +51,10 @@ public class SignUpApplicationService implements ApplicationService {
             default -> Result.fail("不可知的注册类型");
         }
 
-        // TODO: 生成用户头像
+        if (Optional.ofNullable(account).isPresent()) {
+            avatarPublish.initAvatar(account.getUser().getUserId().getId());
+
+        }
 
 
 

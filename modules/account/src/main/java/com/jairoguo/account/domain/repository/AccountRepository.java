@@ -1,6 +1,7 @@
 package com.jairoguo.account.domain.repository;
 
 import com.jairoguo.account.domain.model.aggregate.Account;
+import com.jairoguo.account.domain.model.entity.UserInfo;
 import com.jairoguo.account.domain.model.entity.id.OpenCode;
 import com.jairoguo.common.base.Repository;
 
@@ -9,5 +10,6 @@ import com.jairoguo.common.base.Repository;
  */
 public interface AccountRepository extends Repository<Account, OpenCode> {
 
+    Boolean updateUserInfo(UserInfo userInfo);
 
 }
