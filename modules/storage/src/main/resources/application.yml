@@ -1,0 +1,77 @@
+server:
+  port: 8805
+
+spring:
+  application:
+    name: storage
+  servlet:
+    multipart:
+      max-file-size: 10MB
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+    function:
+      definition: initAvatar
+    stream:
+      bindings:
+        initAvatar-in-0:
+          destination: init-avatar
+        backToAvatar-out-0:
+          destination: back-avatar
+  shardingsphere:
+    datasource:
+      names: storage
+      storage:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://192.168.3.127:3306/storage
+        username: root
+        password: root
+    rules:
+      sharding:
+        auto-tables:
+          t_avatar:
+            actual-data-sources: storage
+            sharding-strategy:
+              standard:
+                sharding-column: user_id
+                sharding-algorithm-name: table-mod
+        default-table-strategy:
+          standard:
+            sharding-column: id
+            sharding-algorithm-name: MOD
+        shardingAlgorithms:
+          table-mod:
+            type: MOD
+            props:
+              sharding-count: 2
+        default-key-generate-strategy:
+          column: id
+          key-generator-name: SNOWFLAKE
+        default-sharding-column: id
+    props:
+      sql-show: true
+
+storage:
+  type: images
+  suffix: png
+  huawei:
+    obs:
+      endPoint: obs.cn-north-4.myhuaweicloud.com
+      ak: ECAO0GUERFWI8G7SWFA3
+      sk: EfIzNNiU6PFqMB6Yr7PNnVclaJ3PEsLuLlgwibZ8
+      bucketName: storage-avatar
