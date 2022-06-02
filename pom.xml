@@ -29,7 +29,9 @@
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <shardingsphere.version>5.1.1</shardingsphere.version>
         <druid.version>1.2.8</druid.version>
-
+        <esdk-obs-java-bundle.version>3.21.12</esdk-obs-java-bundle.version>
+        <batik.version>1.14</batik.version>
+        <nashorn.version>15.3</nashorn.version>
         <hutool.version>5.7.20</hutool.version>
         <lombok.version>1.18.16</lombok.version>
         <mapstruct.version>1.5.0.RC1</mapstruct.version>
@@ -178,6 +180,24 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-processor</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.huaweicloud</groupId>
+                <artifactId>esdk-obs-java-bundle</artifactId>
+                <version>${esdk-obs-java-bundle.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.xmlgraphics</groupId>
+                <artifactId>batik-all</artifactId>
+                <version>${batik.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.openjdk.nashorn</groupId>
+                <artifactId>nashorn-core</artifactId>
+                <version>${nashorn.version}</version>
             </dependency>
 
             <!-- 测试依赖 =================================================== -->
