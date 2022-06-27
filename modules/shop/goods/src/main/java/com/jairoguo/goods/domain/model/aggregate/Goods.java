@@ -109,4 +109,11 @@ public class Goods implements AggregateRoot<GoodsNumber> {
         return goods;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void bindPrice(Price price) {
+        this.price = price;
+    }
 }
