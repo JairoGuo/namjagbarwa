@@ -210,6 +210,8 @@
         <option value="$PROJECT_DIR$/modules/sms/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/modules/storage/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/auth/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/shop/goods/pom.xml" />
       </list>
     </option>
   </component>
