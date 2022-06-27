@@ -16,6 +16,8 @@
         <module>account</module>
         <module>sms</module>
         <module>storage</module>
+        <module>auth</module>
+        <module>shop</module>
     </modules>
 
     <properties>
