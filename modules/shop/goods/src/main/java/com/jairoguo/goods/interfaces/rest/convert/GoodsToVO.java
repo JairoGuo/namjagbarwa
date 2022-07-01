@@ -43,7 +43,7 @@ public class GoodsToVO {
             return null;
         }
         return new SpecsAttributeVO(item.getGoodsId(), item.getSku(), item.getStock(), item.getSales(),
-                convertToPriceVO(item.getPrice()), item.getImage(), item.getUnique(), item.getCost());
+                convertToPriceVO(item.getPrice()), item.getImage(), item.getCost());
     }
 
     public static PriceVO convertToPriceVO(Price item) {
