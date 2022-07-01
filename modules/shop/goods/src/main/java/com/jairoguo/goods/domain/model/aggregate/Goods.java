@@ -2,7 +2,6 @@ package com.jairoguo.goods.domain.model.aggregate;
 
 
 
-import cn.hutool.core.lang.UUID;
 import com.jairoguo.common.base.AggregateRoot;
 import com.jairoguo.goods.domain.model.entity.Category;
 import com.jairoguo.goods.domain.model.entity.Specs;
@@ -11,11 +10,7 @@ import com.jairoguo.goods.domain.model.entity.id.ShippingTemplateNumber;
 import com.jairoguo.goods.domain.model.value.Attribute;
 import com.jairoguo.goods.domain.model.value.Detail;
 import com.jairoguo.goods.domain.model.value.Mark;
-import com.jairoguo.goods.domain.model.value.Price;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,8 +21,7 @@ import java.util.List;
  * @author Jairo Guo
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Getter
-@ToString
+@Data
 public class Goods implements AggregateRoot<GoodsNumber> {
     /**
      * 商品编号
@@ -37,10 +31,6 @@ public class Goods implements AggregateRoot<GoodsNumber> {
      * 商品名称
      */
     private String name;
-    /**
-     * 商品价格
-     */
-    private Price price;
     /**
      * 产品简介
      */
@@ -65,10 +55,6 @@ public class Goods implements AggregateRoot<GoodsNumber> {
      * 店内排序权重
      */
     private Integer sortWeight;
-    /**
-     * 库存
-     */
-    private Integer stock;
     /**
      * 获得积分
      */
@@ -102,10 +88,13 @@ public class Goods implements AggregateRoot<GoodsNumber> {
      */
     private ShippingTemplateNumber shippingTemplate;
 
+    public static Goods newInstance() {
+        return new Goods();
+    }
+
     public static Goods create() {
         Goods goods = new Goods();
-        goods.goodsNumber = new GoodsNumber();
-        goods.goodsNumber.setNumber(UUID.fastUUID().getLeastSignificantBits());
+        goods.goodsNumber = GoodsNumber.create();
         return goods;
     }
 
@@ -113,7 +102,9 @@ public class Goods implements AggregateRoot<GoodsNumber> {
         this.name = name;
     }
 
-    public void bindPrice(Price price) {
-        this.price = price;
+
+
+    public void bindSpecs(Specs specs) {
+        this.specs = specs;
     }
 }

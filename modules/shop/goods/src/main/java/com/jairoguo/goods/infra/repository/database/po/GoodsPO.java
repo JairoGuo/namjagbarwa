@@ -39,27 +39,23 @@ public class GoodsPO extends BaseEntity {
      * 商品名称
      */
     private String name;
-    /**
-     * 商品价格
-     */
-    private BigDecimal price;
-    /**
-     * 成本价
-     */
-    private BigDecimal cost;
 
     /**
      * 产品简介
      */
     private String introduction;
     /**
+     * 商品封面
+     */
+    private String cover;
+    /**
      * 商品图片
      */
-    private String image;
+    private String images;
     /**
      * 分类id
      */
-    private String categoryId;
+    private Long categoryId;
     /**
      * 店铺id
      */
@@ -67,33 +63,16 @@ public class GoodsPO extends BaseEntity {
     /**
      * 关键字
      */
-    private String keyword;
+    private String keywords;
     /**
      * 店内排序权重
      */
     private Integer sortWeight;
-    /**
-     * 库存
-     */
-    private Integer stock;
 
     /**
      * 获得积分
      */
     private BigDecimal giveIntegral;
-
-    /**
-     * 会员价格
-     */
-    private BigDecimal vipPrice;
-    /**
-     * 学生价格
-     */
-    private BigDecimal studentPrice;
-    /**
-     * 税价
-     */
-    private BigDecimal taxPrice;
     /**
      * 邮费
      */

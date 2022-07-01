@@ -1,7 +1,7 @@
 package com.jairoguo.goods.domain.model.value;
 
 import com.jairoguo.common.base.ValueObject;
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
 /**
@@ -9,7 +9,7 @@ import lombok.ToString;
  *
  * @author Jairo Guo
  */
-@Getter
+@Data
 @ToString
 public class SpecsValue implements ValueObject {
     private String specsName;

@@ -1,7 +1,7 @@
 package com.jairoguo.goods.domain.model.value;
 
 import com.jairoguo.common.base.ValueObject;
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author Jairo Guo
  */
 
-@Getter
+@Data
 @ToString
 public class Price implements ValueObject {
     /**
@@ -36,33 +36,5 @@ public class Price implements ValueObject {
      */
     private BigDecimal taxPrice;
 
-    private Price() {
-
-    }
-
-    public static Price create() {
-
-        return new Price();
-    }
-
-    public void setSellPrice(BigDecimal sellPrice) {
-        this.sellPrice = sellPrice;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
-    public void setVipPrice(BigDecimal vipPrice) {
-        this.vipPrice = vipPrice;
-    }
-
-    public void setStudentPrice(BigDecimal studentPrice) {
-        this.studentPrice = studentPrice;
-    }
-
-    public void setTaxPrice(BigDecimal taxPrice) {
-        this.taxPrice = taxPrice;
-    }
 
 }

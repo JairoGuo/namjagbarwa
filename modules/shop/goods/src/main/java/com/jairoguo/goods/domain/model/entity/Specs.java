@@ -3,12 +3,9 @@ package com.jairoguo.goods.domain.model.entity;
 
 import com.jairoguo.common.base.Entity;
 import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
-import com.jairoguo.goods.domain.model.value.SpecsAttribute;
-import com.jairoguo.goods.domain.model.value.SpecsValue;
 import lombok.AccessLevel;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.List;
 
@@ -17,12 +14,14 @@ import java.util.List;
  *
  * @author Jairo Guo
  */
-@Getter
-@ToString
+@Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Specs implements Entity<GoodsNumber> {
     private Boolean multiSpecs;
     private List<SpecsAttribute> specsAttributeList;
-    private List<SpecsValue> specsValueList;
+
+    public static Specs create() {
+        return new Specs();
+    }
 
 }
