@@ -19,8 +19,12 @@ spring:
           uri: lb://sms
           predicates:
             - Path=/**
-        - id: sms
-          uri: lb://goods
+        - id: goods
+          uri: lb://goods-server
+          predicates:
+            - Path=/**
+        - id: order
+          uri: lb://order-server
           predicates:
             - Path=/**
 
