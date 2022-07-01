@@ -3,6 +3,7 @@ package com.jairoguo.common.result;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jairoguo.exception.result.ResultException;
 
 import java.io.Serializable;
 
@@ -127,7 +128,7 @@ public class ResultBody<T> implements Serializable {
             return new ObjectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            throw new ResultException(ResultCodeEnum.ERROR.getCode(), "序列化失败", e.getMessage());
         }
-        return "";
     }
 }
