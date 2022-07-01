@@ -12,6 +12,7 @@
         <module>infra</module>
         <module>modules</module>
         <module>gateway</module>
+        <module>interfaces</module>
     </modules>
 
     <properties>
@@ -20,6 +21,7 @@
 
         <!-- 一方库 -->
         <infra.version>1.0-SNAPSHOT</infra.version>
+        <interfaces.version>1.0-SNAPSHOT</interfaces.version>
 
         <!-- 三方库 -->
         <spring-boot.version>2.6.8</spring-boot.version>
@@ -86,6 +88,18 @@
                 <groupId>com.jairoguo</groupId>
                 <artifactId>validated-core</artifactId>
                 <version>${infra.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>order-api</artifactId>
+                <version>${interfaces.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>goods-api</artifactId>
+                <version>${interfaces.version}</version>
             </dependency>
 
             <!-- 三方库 =================================================== -->
