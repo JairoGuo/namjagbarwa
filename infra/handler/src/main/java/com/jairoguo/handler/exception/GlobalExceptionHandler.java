@@ -19,12 +19,24 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public <T> ResultBody<T> exception(Exception e) {
+        e.printStackTrace();
+        return ResultBody.<T>builder()
+                .code(ResultCodeEnum.ERROR.getCode())
+                .msg("服务端出现异常")
+                .success(false)
+                .info(e.getMessage())
+                .build();
+    }
+
     /*
     * 统一数据异常
     */
     @ExceptionHandler(ResultException.class)
     @ResponseStatus(HttpStatus.OK)
-    public <T> ResultBody<T> exception(ResultException e) {
+    public <T> ResultBody<T> resultException(ResultException e) {
         return ResultBody.<T>builder()
                 .code(e.getCode())
                 .msg(e.getMsg())

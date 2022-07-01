@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.jairoguo.handler.exception.GlobalExceptionHandler,\
-    com.jairoguo.handler.response.ControllerResponseHandler
+    com.jairoguo.handler.response.ControllerResponseHandler,\
+    com.jairoguo.handler.interceptor.FeignInterceptor
