@@ -4,10 +4,9 @@ import com.jairoguo.goods.application.bo.GoodsBO;
 import com.jairoguo.goods.domain.model.aggregate.Goods;
 import com.jairoguo.goods.domain.repository.GoodsRepository;
 import com.jairoguo.goods.domain.service.GoodsDomainService;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -26,6 +25,7 @@ public class GoodsApplicationService {
     @Resource
     private GoodsDomainService goodsDomainService;
 
+    @Transactional
     public void addGoods(GoodsBO goodsBO) {
 
         goodsDomainService.createGoods(goodsBO.goods());

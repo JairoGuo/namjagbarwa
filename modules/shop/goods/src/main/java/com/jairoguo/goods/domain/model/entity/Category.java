@@ -3,17 +3,14 @@ package com.jairoguo.goods.domain.model.entity;
 
 import com.jairoguo.common.base.Entity;
 import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 /**
  * 商品分类
  *
  * @author Jairo Guo
  */
-@Getter
+@Data
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Category implements Entity<GoodsNumber> {
@@ -21,7 +18,8 @@ public class Category implements Entity<GoodsNumber> {
     /**
      * 父id
      */
-    private Integer goodsId;
+    private Long parentId;
+    private Long categoryId;
 
     /**
      * 分类名称
@@ -42,5 +40,9 @@ public class Category implements Entity<GoodsNumber> {
      * 是否推荐
      */
     private Boolean isRecommend;
+
+    public static Category create() {
+        return new Category();
+    }
 
 }

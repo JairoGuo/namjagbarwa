@@ -3,12 +3,14 @@ server:
 
 spring:
   application:
-    name: goods
+    name: goods-server
   jpa:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL8Dialect
   shardingsphere:
+    props:
+      sql-show: true
     datasource:
       names: goods
       goods:
@@ -25,6 +27,30 @@ spring:
             sharding-strategy:
               standard:
                 sharding-column: id
+                sharding-algorithm-name: table-mod
+          t_goods_category:
+            actual-data-sources: goods
+            sharding-strategy:
+              standard:
+                sharding-column: goods_id
+                sharding-algorithm-name: table-mod
+          t_goods_detail:
+            actual-data-sources: goods
+            sharding-strategy:
+              standard:
+                sharding-column: id
+                sharding-algorithm-name: table-mod
+          t_goods_attr:
+            actual-data-sources: goods
+            sharding-strategy:
+              standard:
+                sharding-column: goods_id
+                sharding-algorithm-name: table-mod
+          t_specs_attribute:
+            actual-data-sources: goods
+            sharding-strategy:
+              standard:
+                sharding-column: goods_id
                 sharding-algorithm-name: table-mod
         default-table-strategy:
           standard:

@@ -1,4 +1,4 @@
-package com.jairoguo.goods.interfaces.rest.dto;
+package com.jairoguo.goods.dto;
 
 /**
  * @author Jairo Guo

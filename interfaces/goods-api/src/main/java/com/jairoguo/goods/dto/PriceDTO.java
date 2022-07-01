@@ -1,4 +1,4 @@
-package com.jairoguo.goods.interfaces.rest.dto;
+package com.jairoguo.goods.dto;
 
 import java.math.BigDecimal;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * @author Jairo Guo
  */
 public record PriceDTO(
-         BigDecimal price,
+         BigDecimal sellPrice,
          BigDecimal cost,
          BigDecimal vipPrice,
          BigDecimal studentPrice,

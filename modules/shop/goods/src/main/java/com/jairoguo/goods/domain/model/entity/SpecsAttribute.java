@@ -1,8 +1,9 @@
-package com.jairoguo.goods.domain.model.value;
+package com.jairoguo.goods.domain.model.entity;
 
-import com.jairoguo.common.base.ValueObject;
-import lombok.Getter;
-import lombok.ToString;
+import com.jairoguo.common.base.Entity;
+import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
+import com.jairoguo.goods.domain.model.value.Price;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
@@ -11,9 +12,8 @@ import java.math.BigDecimal;
  *
  * @author Jairo Guo
  */
-@Getter
-@ToString
-public class SpecsAttribute implements ValueObject {
+@Data
+public class SpecsAttribute implements Entity<GoodsNumber> {
     private Long goodsId;
 
     /**
@@ -24,7 +24,7 @@ public class SpecsAttribute implements ValueObject {
     /**
      * 属性对应的库存
      */
-    private Integer stock;
+    private Long stock;
 
 
     /**
