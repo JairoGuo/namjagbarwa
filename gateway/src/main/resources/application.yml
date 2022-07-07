@@ -5,12 +5,16 @@ spring:
     name: gateway
   cloud:
     nacos:
-      server-addr: 192.168.3.127:8848
+      server-addr: nacos:8848
     gateway:
       discovery:
         locator:
           enabled: true
       routes:
+        - id: auth
+          uri: lb://auth-server
+          predicates:
+            - Path=/**
         - id: account
           uri: lb://account
           predicates:

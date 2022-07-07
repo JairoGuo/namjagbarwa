@@ -24,7 +24,8 @@ public class GlobalFilterConfigure {
                         "/account/signUp/email",
                         "/account/signUp/phone",
                         "/account/signIn/password",
-                        "/account/signIn/smsCode"
+                        "/account/signIn/smsCode",
+                        "/auth-server/login/login"
                 )
                 // 放行sms服务路由
                 .addExclude(
@@ -33,7 +34,7 @@ public class GlobalFilterConfigure {
                 // 认证函数: 每次请求执行
                 .setAuth(obj -> SaRouter.match("/account/getAccount", StpUtil::checkLogin))
                 // 异常处理函数：每次认证函数发生异常时执行此函数
-                .setError(e -> Result.info(ResultCodeEnum.INFO, "未登录"))
+                .setError(e -> Result.info(ResultCodeEnum.INFO, e.getMessage()))
                 .setBeforeAuth(r -> {
                 });
     }
