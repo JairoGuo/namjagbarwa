@@ -1,7 +1,10 @@
 package com.jairoguo.handler.response;
 
+import com.jairoguo.common.FeignUtil;
 import com.jairoguo.common.result.Result;
 import com.jairoguo.common.result.ResultBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -18,6 +21,8 @@ import java.util.LinkedHashMap;
 
 @RestControllerAdvice
 public class ControllerResponseHandler implements ResponseBodyAdvice<Object> {
+
+    Logger log = LoggerFactory.getLogger(ControllerResponseHandler.class);
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
@@ -31,7 +36,9 @@ public class ControllerResponseHandler implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
 
-        if (request.getHeaders().containsKey("type")) {
+        log.info("ControllerResponseHandler body:{}; ParameterType: {}", body, returnType.getParameterType());
+
+        if (request.getHeaders().containsKey(FeignUtil.FEIGN_ID)) {
             return body;
         }
 
