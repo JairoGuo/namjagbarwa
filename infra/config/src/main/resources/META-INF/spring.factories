@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.jairoguo.config.converter.LongToStringConfiguration
+    com.jairoguo.config.serializer.SerializerConfig
