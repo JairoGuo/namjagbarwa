@@ -36,7 +36,7 @@ public class ControllerResponseHandler implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest request,
                                   ServerHttpResponse response) {
 
-        log.info("ControllerResponseHandler body:{}; ParameterType: {}", body, returnType.getParameterType());
+        log.info("ControllerResponseHandler body:{}; ParameterType: {}; Headers: {}", body, returnType.getParameterType(), request.getHeaders());
 
         if (request.getHeaders().containsKey(FeignUtil.FEIGN_ID)) {
             return body;
