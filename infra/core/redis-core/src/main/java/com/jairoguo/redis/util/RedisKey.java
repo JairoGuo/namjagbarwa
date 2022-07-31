@@ -16,7 +16,7 @@ public class RedisKey {
     @Value("${spring.application.name}")
     private String moduleName;
 
-    public String getKey(String... fields) {
+    public String getKey(String businessName ,String... fields) {
         fields = Optional.ofNullable(fields).orElseThrow(() -> {
             throw new RedisKeyException("fields不能为null");
         });
@@ -38,12 +38,12 @@ public class RedisKey {
         }
 
         /*
-            [{project_name}]:{modules}:{{business_uid}[:{uid_value}][.{{business_uid2}[:{uid_value2}]]
+            [{project_name}]:{modules}:{businessName}:{{business_uid}[:{uid_value}][.{{business_uid2}[:{uid_value2}]]
          */
         if (Optional.ofNullable(projectName).isPresent()) {
-            return MessageFormat.format("{0}:{1}:{2}", projectName, moduleName, param).toUpperCase();
+            return MessageFormat.format("{0}:{1}:{2}:{3}", projectName, moduleName, businessName, param).toUpperCase();
         } else {
-            return MessageFormat.format("{0}:{1}", moduleName, param).toUpperCase();
+            return MessageFormat.format("{0}:{1}:{2}", moduleName, businessName, param).toUpperCase();
         }
     }
     public void setAttributes(String projectName) {
