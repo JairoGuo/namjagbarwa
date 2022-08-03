@@ -10,7 +10,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   cloud:
     nacos:
-      server-addr: 192.168.3.127:8848
+      server-addr: nacos:8848
     function:
       definition: backToAvatar
     stream:
@@ -25,7 +25,7 @@ spring:
       account:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.3.127:3306/account
+        url: jdbc:mysql://mysql:3306/account
         username: root
         password: root
     rules:
