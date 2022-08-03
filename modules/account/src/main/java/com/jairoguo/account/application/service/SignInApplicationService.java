@@ -31,7 +31,7 @@ public class SignInApplicationService {
         } else if (Boolean.TRUE.equals(account.getUser().getState())){
             switch (account.getOpenCode().getType()) {
                 case EMAIL -> {
-                    Boolean passwordStatus = account.getUser().comparePassword(account.getUser().getPassword());
+                    Boolean passwordStatus = account.getUser().comparePassword(signInBO.getAccount().getUser().getPassword());
                     if (Boolean.FALSE.equals(passwordStatus)) {
                         Result.fail("密码不正确");
                     }
