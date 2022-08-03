@@ -18,8 +18,11 @@ public class GoodsToVO {
         if (item == null) {
             return null;
         }
-        return new GoodsVO(item.getName(), item.getIntroduction(), item.getCover(),
-                convertToList(item.getSpecs().getSpecsAttributeList()));
+        List<SpecsAttributeVO> specsAttributeVOList = null;
+        if (item.getSpecs() != null) {
+            specsAttributeVOList = convertToList(item.getSpecs().getSpecsAttributeList());
+        }
+        return new GoodsVO(item.getName(), item.getIntroduction(), item.getCover(), specsAttributeVOList);
     }
 
     public static List<GoodsVO> convertToGoodsList(List<Goods> item) {

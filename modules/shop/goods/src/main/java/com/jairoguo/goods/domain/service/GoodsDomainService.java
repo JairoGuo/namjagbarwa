@@ -8,4 +8,7 @@ import com.jairoguo.goods.domain.model.aggregate.Goods;
  */
 public interface GoodsDomainService extends DomainService {
     void createGoods(Goods goods);
+
+    void deductions(Long specsAttributeId, Long count);
+
 }

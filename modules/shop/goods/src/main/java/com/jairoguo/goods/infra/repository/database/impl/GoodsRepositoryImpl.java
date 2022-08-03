@@ -2,6 +2,7 @@ package com.jairoguo.goods.infra.repository.database.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.jairoguo.goods.domain.model.aggregate.Goods;
 import com.jairoguo.goods.domain.model.entity.Specs;
 import com.jairoguo.goods.domain.model.entity.SpecsAttribute;
@@ -9,17 +10,20 @@ import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
 import com.jairoguo.goods.domain.repository.GoodsRepository;
 import com.jairoguo.goods.infra.repository.database.convert.GoodsPOToEntityConvert;
 import com.jairoguo.goods.infra.repository.database.convert.GoodsRepositoryConvert;
+import com.jairoguo.goods.infra.repository.database.convert.SpecsAttributeRepositoryConvert;
 import com.jairoguo.goods.infra.repository.database.mapper.GoodsAttributeMapper;
 import com.jairoguo.goods.infra.repository.database.mapper.GoodsDetailMapper;
 import com.jairoguo.goods.infra.repository.database.mapper.GoodsMapper;
 import com.jairoguo.goods.infra.repository.database.mapper.SpecsAttributeMapper;
 import com.jairoguo.goods.infra.repository.database.po.GoodsPO;
 import com.jairoguo.goods.infra.repository.database.po.SpecsAttributePO;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jairo Guo
@@ -38,6 +42,9 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
     @Resource
     private SpecsAttributeMapper specsAttributeMapper;
+
+    @Resource
+    private RedisTemplate<String, Goods> redisTemplate;
 
     @Override
     public Boolean save(Goods goods) {
@@ -63,7 +70,30 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
     @Override
     public Goods findById(GoodsNumber id) {
-        return null;
+
+        Goods goodsCache = redisTemplate.opsForValue().get(id.getId().toString());
+        if (goodsCache != null) {
+            return goodsCache;
+        }
+
+        QueryWrapper<GoodsPO> goodsPOQueryWrapper = new QueryWrapper<>();
+        goodsPOQueryWrapper.lambda().eq(GoodsPO::getId, id.getId());
+        if (id.getId() != null) {
+            goodsPOQueryWrapper.lambda().eq(GoodsPO::getId, id.getId());
+        }
+        if (id.getNumber() != null) {
+            goodsPOQueryWrapper.lambda().eq(GoodsPO::getGoodsNumber, id.getNumber());
+        }
+        GoodsPO goodsPO = goodsMapper.selectOne(goodsPOQueryWrapper);
+        Goods goods = GoodsPOToEntityConvert.convertToGoods(goodsPO);
+
+        List<SpecsAttribute> specsAttributeList = getSpecsAttributeList(goodsPO.getId());
+        Specs specs = Specs.create();
+        specs.setSpecsAttributeList(specsAttributeList);
+        goods.setSpecs(specs);
+        redisTemplate.opsForValue().set(id.getId().toString(), goods, 10, TimeUnit.MINUTES);
+
+        return goods;
     }
 
     @Override
@@ -83,14 +113,40 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
         List<Goods> goodsList = GoodsPOToEntityConvert.convertToGoodsList(goodsListPO);
         goodsList.forEach(goods -> {
-            QueryWrapper<SpecsAttributePO> specsAttributePOQueryWrapper = new QueryWrapper<>();
-            specsAttributePOQueryWrapper.lambda().eq(SpecsAttributePO::getGoodsId, goods.getGoodsNumber().getId());
-            List<SpecsAttributePO> specsAttributePOList = specsAttributeMapper.selectList(specsAttributePOQueryWrapper);
-            List<SpecsAttribute> specsAttributeList = GoodsPOToEntityConvert.convertToSpecsAttributeList(specsAttributePOList);
+            List<SpecsAttribute> specsAttributeList = getSpecsAttributeList(goods.getGoodsNumber().getId());
             Specs specs = Specs.create();
             specs.setSpecsAttributeList(specsAttributeList);
             goods.setSpecs(specs);
         });
         return goodsList;
+    }
+
+    @Override
+    public void deductions(GoodsNumber goodsNumber, Long count) {
+        UpdateWrapper<SpecsAttributePO> specsAttributePOUpdateWrapper = new UpdateWrapper<>();
+        specsAttributePOUpdateWrapper.lambda()
+                .eq(SpecsAttributePO::getId, goodsNumber.getSpecsAttributeId())
+                // .ge(SpecsAttributePO::getStock, count)
+                .setSql("stock = stock - " + count);
+
+        SpecsAttributePO specsAttributePO = new SpecsAttributePO();
+
+        specsAttributeMapper.update(specsAttributePO, specsAttributePOUpdateWrapper);
+    }
+
+    @Override
+    public SpecsAttribute getSpecs(GoodsNumber goodsNumber) {
+
+        SpecsAttributePO specsAttributePO = specsAttributeMapper.selectById(goodsNumber.getSpecsAttributeId());
+
+        return SpecsAttributeRepositoryConvert.toEntity(specsAttributePO);
+
+    }
+
+    private List<SpecsAttribute> getSpecsAttributeList(Long id) {
+        QueryWrapper<SpecsAttributePO> specsAttributePOQueryWrapper = new QueryWrapper<>();
+        specsAttributePOQueryWrapper.lambda().eq(SpecsAttributePO::getGoodsId, id);
+        List<SpecsAttributePO> specsAttributePOList = specsAttributeMapper.selectList(specsAttributePOQueryWrapper);
+        return GoodsPOToEntityConvert.convertToSpecsAttributeList(specsAttributePOList);
     }
 }

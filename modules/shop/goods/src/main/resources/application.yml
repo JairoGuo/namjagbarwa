@@ -16,7 +16,7 @@ spring:
       goods:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.3.127:3306/goods
+        url: jdbc:mysql://mysql:3306/goods
         username: root
         password: root
     rules:
@@ -65,3 +65,10 @@ spring:
           column: id
           key-generator-name: SNOWFLAKE
         default-sharding-column: id
+  cloud:
+    function:
+      definition: placeOrder
+    stream:
+      bindings:
+        placeOrder-out-0:
+          destination: place-order

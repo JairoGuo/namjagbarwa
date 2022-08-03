@@ -13,6 +13,7 @@ import lombok.Data;
 public class GoodsNumber implements Id {
     private Long number;
     private Long id;
+    private Long specsAttributeId;
 
     private GoodsNumber() {
     }
