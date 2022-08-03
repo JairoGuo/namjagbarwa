@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.jairoguo.redis.config.RedisConfiguration,\
   com.jairoguo.redis.util.RedisUtil,\
+  com.jairoguo.redis.util.RedisUtils,\
   com.jairoguo.redis.util.RedisKey
