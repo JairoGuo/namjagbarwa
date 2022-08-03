@@ -15,6 +15,7 @@
     <modules>
         <module>goods</module>
         <module>order</module>
+        <module>seckill</module>
     </modules>
 
     <properties>
