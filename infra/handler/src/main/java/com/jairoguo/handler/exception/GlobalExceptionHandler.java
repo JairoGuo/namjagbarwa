@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<ResultBody<?>> handleResultException(ResultException e, WebRequest request) {
-        log.info("返回异常: {}", e.getMessage());
+        log.info("返回异常: {}", e.getMsg());
 
         ResultBody<?> resultBody = ResultBody.builder()
                 .code(e.getCode())
