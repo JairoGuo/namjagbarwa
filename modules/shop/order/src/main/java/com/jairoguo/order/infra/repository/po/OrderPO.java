@@ -20,9 +20,12 @@ import java.math.BigDecimal;
 public class OrderPO extends BaseEntity {
 
     private Long goodsId;
+    private Long specsId;
+
+    private Long userId;
 
     /** 订单商品总数 */
-    private Integer totalNum;
+    private Long totalNum;
 
     /** 订单总价 */
     private BigDecimal totalPrice;

@@ -27,6 +27,11 @@
 
         <dependency>
             <groupId>com.jairoguo</groupId>
+            <artifactId>auth-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
             <artifactId>order-api</artifactId>
         </dependency>
 
@@ -38,6 +43,11 @@
         <dependency>
             <groupId>com.jairoguo</groupId>
             <artifactId>database-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
+            <artifactId>redis-core</artifactId>
         </dependency>
 
         <dependency>
@@ -74,6 +84,11 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
 
         <dependency>
