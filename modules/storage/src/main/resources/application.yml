@@ -1,5 +1,5 @@
 server:
-  port: 8805
+  port: 8803
 
 spring:
   application:
@@ -23,7 +23,7 @@ spring:
         enable_lazy_load_no_trans: true
   cloud:
     nacos:
-      server-addr: 127.0.0.1:8848
+      server-addr: nacos:8848
     function:
       definition: initAvatar
     stream:
@@ -38,7 +38,7 @@ spring:
       storage:
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://192.168.3.127:3306/storage
+        url: jdbc:mysql://mysql:3306/storage
         username: root
         password: root
     rules:
