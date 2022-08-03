@@ -24,12 +24,12 @@
         <interfaces.version>1.0-SNAPSHOT</interfaces.version>
 
         <!-- 三方库 -->
-        <spring-boot.version>2.6.8</spring-boot.version>
-        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
+        <spring-boot.version>2.7.0</spring-boot.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
         <sa-token.version>1.30.0</sa-token.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <shardingsphere.version>5.1.1</shardingsphere.version>
+        <shardingsphere.version>5.1.2</shardingsphere.version>
         <druid.version>1.2.8</druid.version>
         <esdk-obs-java-bundle.version>3.21.12</esdk-obs-java-bundle.version>
         <batik.version>1.14</batik.version>
@@ -99,6 +99,18 @@
             <dependency>
                 <groupId>com.jairoguo</groupId>
                 <artifactId>goods-api</artifactId>
+                <version>${interfaces.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>auth-api</artifactId>
+                <version>${interfaces.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.jairoguo</groupId>
+                <artifactId>account-api</artifactId>
                 <version>${interfaces.version}</version>
             </dependency>
 
