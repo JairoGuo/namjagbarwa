@@ -27,13 +27,12 @@ public class SignInController {
     private SignInApplicationService signInApplicationService;
 
     @PostMapping("password")
-    public ResultBody<AccountVO> signInByPassword(@RequestBody SignInByPasswordDTO signInByPasswordDTO) {
+    public AccountVO signInByPassword(@RequestBody SignInByPasswordDTO signInByPasswordDTO) {
         Account account = SignInAssembler.INSTANCE.toAccount(signInByPasswordDTO);
         SignInBO signInBO = SignInBO.builder().account(account).build();
         Account loginAccount = signInApplicationService.login(signInBO);
         AccountVO accountVo = new AccountVO(loginAccount.getUser().getUserId().getId(), "");
-
-        return Result.success(accountVo);
+        return accountVo;
     }
 
     @PostMapping("smsCode")

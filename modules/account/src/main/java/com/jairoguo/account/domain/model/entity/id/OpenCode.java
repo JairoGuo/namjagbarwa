@@ -3,12 +3,12 @@ package com.jairoguo.account.domain.model.entity.id;
 import cn.hutool.core.lang.Validator;
 import com.jairoguo.account.domain.model.value.OpenCodeTypeEnum;
 import com.jairoguo.common.base.Id;
-import lombok.Getter;
+import lombok.Data;
 
 /**
  * @author Jairo Guo
  */
-@Getter
+@Data
 public class OpenCode implements Id {
     private String openCode;
     private OpenCodeTypeEnum type;
