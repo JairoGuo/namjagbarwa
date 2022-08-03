@@ -31,4 +31,8 @@ spring:
           uri: lb://order-server
           predicates:
             - Path=/**
+        - id: seckill
+          uri: lb://seckill-server
+          predicates:
+            - Path=/**
 
