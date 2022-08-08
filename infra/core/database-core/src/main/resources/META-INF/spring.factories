@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.jairoguo.database.handler.AutoFillHandler
+  com.jairoguo.database.handler.AutoFillHandler,\
+  com.jairoguo.database.config.MybatisPlusConfig
