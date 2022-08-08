@@ -13,6 +13,7 @@
         <module>modules</module>
         <module>gateway</module>
         <module>interfaces</module>
+        <module>admin</module>
     </modules>
 
     <properties>
@@ -27,6 +28,7 @@
         <spring-boot.version>2.7.0</spring-boot.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-boot-admin.version>2.7.0</spring-boot-admin.version>
         <sa-token.version>1.30.0</sa-token.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <shardingsphere.version>5.1.2</shardingsphere.version>
@@ -140,6 +142,14 @@
             </dependency>
 
             <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-dependencies</artifactId>
+                <version>${spring-boot-admin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
                 <version>${mybatis-plus.version}</version>
@@ -149,6 +159,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <scope>compile</scope>
             </dependency>
 
             <dependency>
