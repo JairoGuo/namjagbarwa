@@ -1,0 +1,16 @@
+server:
+  port: 7777
+
+spring:
+  application:
+    name: admin-server
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
