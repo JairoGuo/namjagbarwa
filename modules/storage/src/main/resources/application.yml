@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: storage
+    name: storage-server
   servlet:
     multipart:
       max-file-size: 10MB
