@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 @Builder
 public record OrderDTO(
+        Long goodsId,
         Long specsAttributeId,
         Long userId,
         BigDecimal price,
