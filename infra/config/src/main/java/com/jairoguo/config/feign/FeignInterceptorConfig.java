@@ -1,4 +1,4 @@
-package com.jairoguo.handler.interceptor;
+package com.jairoguo.config.feign;
 
 import com.jairoguo.common.FeignUtil;
 import feign.RequestInterceptor;
@@ -16,9 +16,9 @@ import java.util.UUID;
  * @author Jairo Guo
  */
 @Configuration
-public class FeignInterceptor implements RequestInterceptor {
+public class FeignInterceptorConfig implements RequestInterceptor {
 
-    Logger log = LoggerFactory.getLogger(FeignInterceptor.class);
+    Logger log = LoggerFactory.getLogger(FeignInterceptorConfig.class);
 
     @Override
     public void apply(RequestTemplate requestTemplate) {

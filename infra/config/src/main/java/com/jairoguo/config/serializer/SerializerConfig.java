@@ -32,9 +32,7 @@ public class SerializerConfig {
             builder.serializerByType(Long.class, ToStringSerializer.instance);
             builder.serializerByType(Long.TYPE, ToStringSerializer.instance);
             builder.serializerByType(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
-
             builder.deserializerByType(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
-
         };
     }
 

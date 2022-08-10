@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.jairoguo.config.serializer.SerializerConfig
+    com.jairoguo.config.serializer.SerializerConfig,\
+    com.jairoguo.config.feign.FeignInterceptorConfig,\
+    com.jairoguo.config.feign.OpenFeignErrorDecoder
