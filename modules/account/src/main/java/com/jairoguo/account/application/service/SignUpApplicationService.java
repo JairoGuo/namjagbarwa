@@ -6,6 +6,8 @@ import com.jairoguo.account.application.bo.SignUpBO;
 import com.jairoguo.account.application.event.publish.AvatarPublish;
 import com.jairoguo.account.domain.model.aggregate.Account;
 import com.jairoguo.account.domain.service.AccountDomainService;
+import com.jairoguo.account.infra.api.RoleApiService;
+import com.jairoguo.auth.dto.UserRoleDTO;
 import com.jairoguo.common.base.ApplicationService;
 import com.jairoguo.common.result.Result;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,9 @@ public class SignUpApplicationService implements ApplicationService {
 
     @Resource
     private AvatarPublish avatarPublish;
+
+    @Resource
+    private RoleApiService roleApiService;
 
     @Transactional(rollbackFor = Exception.class)
     public Account register(SignUpBO signUpBO) {
@@ -53,9 +58,9 @@ public class SignUpApplicationService implements ApplicationService {
 
         if (Optional.ofNullable(account).isPresent()) {
             avatarPublish.initAvatar(account.getUser().getUserId().getId());
-
+            roleApiService.bindUserRole(
+                    new UserRoleDTO(account.getUser().getUserId().getId(), signUpBO.getRoleType()));
         }
-
 
 
         return account;

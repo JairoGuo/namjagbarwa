@@ -7,6 +7,7 @@ import com.jairoguo.account.interfaces.rest.assembler.SignUpAssembler;
 import com.jairoguo.account.interfaces.rest.dto.SignUpByEmailDTO;
 import com.jairoguo.account.interfaces.rest.dto.SignUpByPhoneDTO;
 import com.jairoguo.account.interfaces.rest.vo.AccountVO;
+import com.jairoguo.auth.dto.RoleTypeEnum;
 import com.jairoguo.common.result.Result;
 import com.jairoguo.common.result.ResultBody;
 import org.springframework.validation.annotation.Validated;
@@ -31,12 +32,14 @@ public class SignUpController {
 
     /**
      * 通过邮件注册.
-     *
      */
     @PostMapping("email")
     public ResultBody<AccountVO> signUpByEmail(@RequestBody @Valid SignUpByEmailDTO signUpByEmailDTO) {
         Account account = SignUpAssembler.INSTANCE.toAccount(signUpByEmailDTO);
-        SignUpBO signUpBO = SignUpBO.builder().account(account).build();
+        SignUpBO signUpBO = SignUpBO.builder()
+                .account(account)
+                .roleType(RoleTypeEnum.USER)
+                .build();
         account = signUpApplicationService.register(signUpBO);
         AccountVO accountVo = new AccountVO(account.getUser().getUserId().getId(), "");
 
@@ -53,6 +56,7 @@ public class SignUpController {
         SignUpBO signUpBO = SignUpBO.builder()
                 .account(account)
                 .smsCode(signUpByPhoneDTO.code())
+                .roleType(RoleTypeEnum.USER)
                 .build();
         account = signUpApplicationService.register(signUpBO);
         AccountVO accountVo = new AccountVO(account.getUser().getUserId().getId(), "");

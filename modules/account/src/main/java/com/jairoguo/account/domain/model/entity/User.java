@@ -5,14 +5,14 @@ import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;
 import com.jairoguo.account.domain.model.entity.id.UserId;
 import com.jairoguo.common.base.Entity;
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
 
 /**
  * @author Jairo Guo
  */
-@Getter
+@Data
 @ToString
 public class User implements Entity<UserId> {
     private UserId userId;

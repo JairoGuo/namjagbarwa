@@ -2,8 +2,10 @@ server:
   port: 8801
 
 spring:
+  profiles:
+    include: common
   application:
-    name: account
+    name: account-server
   jpa:
     hibernate:
       ddl-auto: update
