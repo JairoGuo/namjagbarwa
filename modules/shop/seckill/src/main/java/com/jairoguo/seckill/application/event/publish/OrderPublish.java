@@ -20,6 +20,12 @@ public class OrderPublish {
     public void placeOrder(Long userId, Long specsAttributeId, BigDecimal price) {
 
 
-        streamBridge.send("placeOrder-out-0", new OrderDTO(specsAttributeId, userId, price, 1L));
+        streamBridge.send("placeOrder-out-0",
+                OrderDTO.builder()
+                        .userId(userId)
+                        .total(1L)
+                        .specsAttributeId(specsAttributeId)
+                        .price(price)
+                        .build());
     }
 }

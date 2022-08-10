@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,7 +19,10 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @TableName("t_seckill_goods")
-@Table(name = "t_seckill_goods")
+@Table(name = "t_seckill_goods", indexes = {
+        @Index(columnList = "goodsId"),
+        @Index(columnList = "specsAttributeId"),
+})
 public class SeckillGoodsPO extends BaseEntity {
     private Long goodsId;
     private Long specsAttributeId;

@@ -57,6 +57,10 @@ public class SeckillGoodsDomainDomainServiceImpl implements SeckillGoodsDomainSe
 
         Long time = Duration.between(LocalDateTime.now(), seckillGoods.getStartDate()).toMillis()
                 + Duration.between(seckillGoods.getStartDate(), seckillGoods.getEndDate()).toMillis();
+        // Cache<String, SeckillGoods> seckillGoodsCache = Caffeine.newBuilder()
+        //         .expireAfterWrite(time, TimeUnit.MILLISECONDS)
+        //         .maximumSize(100)
+        //         .build();
         // 缓存秒杀商品
         redisUtils.set(
                 specsKeys.specsKey(seckillGoods.getSpecsAttributeId()),

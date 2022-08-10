@@ -14,12 +14,15 @@ import com.jairoguo.seckill.domain.service.SeckillGoodsDomainService;
 import com.jairoguo.seckill.infra.api.AuthApiService;
 import com.jairoguo.seckill.infra.api.GoodsApiService;
 import com.jairoguo.seckill.infra.common.LocalOverTag;
+import com.jairoguo.seckill.infra.common.key.LimitingKey;
+import com.jairoguo.seckill.infra.common.key.SeckillPathKeys;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Jairo Guo
@@ -52,6 +55,12 @@ public class SeckillApplicationService {
     private LocalOverTag localOverTag;
 
 
+    @Resource
+    private SeckillPathKeys seckillPathKeys;
+
+    @Resource
+    private LimitingKey limitingKey;
+
     @Transactional
     public void seckill(Long specsAttributeId, String pathId) {
 
@@ -66,6 +75,16 @@ public class SeckillApplicationService {
         // 验证是否登陆
         if (Boolean.TRUE.equals(isLogin)) {
             userId = authApiService.getUserId();
+            if (redisUtils.hasKey(limitingKey.limit(userId))) {
+                Integer count = redisUtils.get(limitingKey.limit(userId), Integer.class);
+                if (count >= 5) {
+                    Result.fail("访问频繁");
+                }
+                redisUtils.increment(limitingKey.limit(userId));
+            } else {
+                redisUtils.set(limitingKey.limit(userId), 0, 5L, TimeUnit.SECONDS);
+
+            }
 
             // 检测秒杀地址
             boolean check = seckillGoodsDomainService.checkPath(userId, specsAttributeId, pathId);
@@ -142,8 +161,13 @@ public class SeckillApplicationService {
 
             checkTime(seckillGoods.getStartDate(), seckillGoods.getEndDate());
 
-            String pathId = UUID.fastUUID().toString();
             Long userId = authApiService.getUserId();
+
+            String pathIdValue = redisUtils.get(seckillPathKeys.pathKey(userId, specsAttributeId), String.class);
+            if (pathIdValue != null) {
+                return pathIdValue;
+            }
+            String pathId = UUID.fastUUID().toString();
 
             seckillGoodsDomainService.setSeckillPath(userId, specsAttributeId, pathId);
             return pathId;
