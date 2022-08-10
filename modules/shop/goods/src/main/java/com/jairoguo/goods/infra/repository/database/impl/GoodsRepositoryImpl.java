@@ -8,6 +8,7 @@ import com.jairoguo.goods.domain.model.entity.Specs;
 import com.jairoguo.goods.domain.model.entity.SpecsAttribute;
 import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
 import com.jairoguo.goods.domain.repository.GoodsRepository;
+import com.jairoguo.goods.infra.common.key.GoodsKeys;
 import com.jairoguo.goods.infra.repository.database.convert.GoodsPOToEntityConvert;
 import com.jairoguo.goods.infra.repository.database.convert.GoodsRepositoryConvert;
 import com.jairoguo.goods.infra.repository.database.convert.SpecsAttributeRepositoryConvert;
@@ -17,6 +18,8 @@ import com.jairoguo.goods.infra.repository.database.mapper.GoodsMapper;
 import com.jairoguo.goods.infra.repository.database.mapper.SpecsAttributeMapper;
 import com.jairoguo.goods.infra.repository.database.po.GoodsPO;
 import com.jairoguo.goods.infra.repository.database.po.SpecsAttributePO;
+import com.jairoguo.redis.util.RedisUtils;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -28,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author Jairo Guo
  */
+@Primary
 @Repository("mybatis")
 public class GoodsRepositoryImpl implements GoodsRepository {
 
@@ -45,6 +49,12 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
     @Resource
     private RedisTemplate<String, Goods> redisTemplate;
+
+    @Resource
+    private RedisUtils redisUtils;
+
+    @Resource
+    private GoodsKeys goodsKeys;
 
     @Override
     public Boolean save(Goods goods) {
@@ -137,9 +147,18 @@ public class GoodsRepositoryImpl implements GoodsRepository {
     @Override
     public SpecsAttribute getSpecs(GoodsNumber goodsNumber) {
 
-        SpecsAttributePO specsAttributePO = specsAttributeMapper.selectById(goodsNumber.getSpecsAttributeId());
+        SpecsAttribute specsAttribute = redisUtils.get(
+                goodsKeys.specsKey(goodsNumber.getSpecsAttributeId()),
+                SpecsAttribute.class);
+        if (specsAttribute != null) {
+            return specsAttribute;
+        }
 
-        return SpecsAttributeRepositoryConvert.toEntity(specsAttributePO);
+        SpecsAttributePO specsAttributePO = specsAttributeMapper.selectById(goodsNumber.getSpecsAttributeId());
+        SpecsAttribute specs = SpecsAttributeRepositoryConvert.toEntity(specsAttributePO);
+        redisUtils.setIfAbsent(goodsKeys.specsKey(goodsNumber.getSpecsAttributeId()), specs, 1L, TimeUnit.MINUTES);
+        redisUtils.setIfAbsent(goodsKeys.specsStockKey(goodsNumber.getSpecsAttributeId()), specs.getStock(), 1L, TimeUnit.MINUTES);
+        return specs;
 
     }
 

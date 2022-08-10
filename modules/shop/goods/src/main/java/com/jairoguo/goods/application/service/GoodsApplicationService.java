@@ -9,11 +9,14 @@ import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
 import com.jairoguo.goods.domain.repository.GoodsRepository;
 import com.jairoguo.goods.domain.service.GoodsDomainService;
 import com.jairoguo.goods.infra.api.AuthApiService;
+import com.jairoguo.goods.infra.common.key.GoodsKeys;
+import com.jairoguo.redis.util.RedisUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,7 +27,7 @@ import java.util.List;
 public class GoodsApplicationService {
 
 
-    @Resource(name = "mybatis")
+    @Resource
     private GoodsRepository goodsRepository;
 
     @Resource
@@ -35,6 +38,12 @@ public class GoodsApplicationService {
 
     @Resource
     private OrderPublish orderPublish;
+
+    @Resource
+    private RedisUtils redisUtils;
+
+    @Resource
+    private GoodsKeys goodsKeys;
 
     @Transactional
     public void addGoods(GoodsBO goodsBO) {
@@ -78,13 +87,15 @@ public class GoodsApplicationService {
             goodsNumber.setId(goodsId);
             goodsNumber.setSpecsAttributeId(specsAttributeId);
             SpecsAttribute specsAttribute = goodsRepository.getSpecs(goodsNumber);
-            Long stock = specsAttribute.getStock();
+            Long stock = redisUtils.execute("stock.lua",
+                    Collections.singletonList(goodsKeys.specsStockKey(specsAttributeId)),
+                    Long.class);
             if (stock <= 0 || number > stock) {
                 Result.fail("库存不足");
             }
 
             // 调用领域服务完成下单
-            orderPublish.placeOrder(userId, specsAttributeId, number);
+            orderPublish.placeOrder(userId, specsAttributeId, number, specsAttribute.getPrice().getSellPrice());
 
         } else {
             Result.fail("用户未登陆");

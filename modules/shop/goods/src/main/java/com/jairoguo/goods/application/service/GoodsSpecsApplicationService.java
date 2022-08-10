@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class GoodsSpecsApplicationService {
 
-    @Resource(name = "mybatis")
+    @Resource
     private GoodsRepository goodsRepository;
 
     public SpecsAttribute getGoodsSpecs(Long specsAttributeId) {

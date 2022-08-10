@@ -25,6 +25,10 @@ public class GoodsController {
     @Resource
     private GoodsApplicationService goodsApplicationService;
 
+    /**
+     * 添加商品
+     * @param goodsDTO 商品信息
+     */
     @PostMapping("add")
     public void add(@RequestBody GoodsDTO goodsDTO) {
         Goods goods = GoodsConvert.convertToGoods(goodsDTO);

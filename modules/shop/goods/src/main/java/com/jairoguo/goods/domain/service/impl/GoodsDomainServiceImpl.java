@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 @Service
 public class GoodsDomainServiceImpl implements GoodsDomainService {
 
-    @Resource(name = "mybatis")
+    @Resource
     private GoodsRepository goodsRepository;
 
     @Override
