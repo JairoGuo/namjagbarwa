@@ -5,7 +5,7 @@ spring:
   main:
     allow-circular-references: true
   application:
-    name: sms
+    name: sms-server
   redis:
     host: 192.168.3.127
   cloud:
