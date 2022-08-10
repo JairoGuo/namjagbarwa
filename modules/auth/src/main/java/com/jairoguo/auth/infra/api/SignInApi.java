@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author Jairo Guo
  */
 
-@FeignClient(name = "account")
+@FeignClient(name = "account-server")
 public interface SignInApi {
 
     @PostMapping("signIn/password")

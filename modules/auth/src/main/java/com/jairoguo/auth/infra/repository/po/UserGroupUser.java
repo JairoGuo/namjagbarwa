@@ -1,4 +1,4 @@
-package com.jairoguo.auth.domain.model.entity;
+package com.jairoguo.auth.infra.repository.po;
 
 /**
  * @author jairo
