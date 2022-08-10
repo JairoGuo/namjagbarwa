@@ -1,10 +1,12 @@
 package com.jairoguo.gateway.config;
 
+import cn.dev33.satoken.exception.SaTokenException;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
+import com.jairoguo.auth.dto.RoleTypeEnum;
 import com.jairoguo.common.result.Result;
-import com.jairoguo.common.result.ResultCodeEnum;
+import com.jairoguo.gateway.util.RoleUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Jairo Guo
  */
 @Configuration
+@SuppressWarnings("all")
 public class GlobalFilterConfigure {
     @Bean
     public SaReactorFilter getFilter() {
@@ -32,10 +35,22 @@ public class GlobalFilterConfigure {
                         "/sms/code/get"
                 )
                 // 认证函数: 每次请求执行
-                .setAuth(obj -> SaRouter.match("/account/getAccount", StpUtil::checkLogin))
+                .setAuth(obj -> {
+                            SaRouter.match("/account/getAccount", StpUtil::checkLogin);
+                            SaRouter.match("/goods-server/goods/add").check(r ->
+                                RoleUtils.checkRole(RoleTypeEnum.SELLER.name(), "该账户不是商家角色"));
+                        }
+
+                )
                 // 异常处理函数：每次认证函数发生异常时执行此函数
-                .setError(e -> Result.info(ResultCodeEnum.INFO, e.getMessage()))
+                .setError(e -> {
+                    if (e instanceof SaTokenException exception) {
+                        return Result.info(String.valueOf(exception.getCode()), exception.getMessage());
+                    }
+                    return e;
+                })
                 .setBeforeAuth(r -> {
+
                 });
     }
 }

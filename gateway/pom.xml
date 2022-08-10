@@ -22,6 +22,21 @@
         </dependency>
 
         <dependency>
+            <groupId>com.jairoguo</groupId>
+            <artifactId>redis-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
+            <artifactId>auth-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
@@ -53,6 +68,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.dev33</groupId>
             <artifactId>sa-token-reactor-spring-boot-starter</artifactId>
         </dependency>
@@ -65,6 +85,11 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-httpclient</artifactId>
         </dependency>
     </dependencies>
 
