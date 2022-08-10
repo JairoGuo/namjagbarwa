@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtils {
 
-    private final  RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public RedisUtils(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -64,6 +64,26 @@ public class RedisUtils {
         return clazz.cast(get(key));
     }
 
+    public <T> List<T> getList(String key, Class<T> clazz) {
+
+        if (get(key) instanceof List<?> list) {
+            if (list.isEmpty()) {
+                return Collections.emptyList();
+            }
+            return list.stream().map(clazz::cast).toList();
+        }
+
+        return Collections.emptyList();
+    }
+
+    public void increment(String key) {
+        redisTemplate.opsForValue().increment(key);
+    }
+
+    public void increment(String key, Long number) {
+        redisTemplate.opsForValue().increment(key, number);
+    }
+
     public void decrement(String key) {
         redisTemplate.opsForValue().decrement(key);
     }
@@ -72,6 +92,18 @@ public class RedisUtils {
         redisTemplate.opsForValue().decrement(key, delta);
     }
 
+
+    public <T> void setIfAbsent(String key, T value, Long time, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit);
+    }
+
+    public <T> void setIfAbsent(String key, T value, Long time) {
+        redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.MILLISECONDS);
+    }
+
+    public <T> void setIfAbsent(String key, T value) {
+        redisTemplate.opsForValue().setIfAbsent(key, value);
+    }
 
     public <T> T execute(String file, List<String> keys, Class<T> clazz) {
 

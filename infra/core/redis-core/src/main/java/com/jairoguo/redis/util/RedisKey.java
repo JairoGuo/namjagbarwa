@@ -46,6 +46,13 @@ public class RedisKey {
             return MessageFormat.format("{0}:{1}:{2}", moduleName, businessName, param).toUpperCase();
         }
     }
+
+    public void setModule(String moduleName) {
+        if (Optional.ofNullable(moduleName).isPresent()) {
+            this.moduleName = moduleName;
+        }
+    }
+
     public void setAttributes(String projectName) {
         if (Optional.ofNullable(projectName).isPresent()) {
             this.projectName = projectName;
