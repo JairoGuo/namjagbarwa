@@ -2,11 +2,13 @@ package com.jairoguo.order.application.event.subscribe;
 
 import com.jairoguo.order.application.service.OrderApplicationService;
 import com.jairoguo.order.domain.model.aggregate.Order;
+import com.jairoguo.order.domain.model.value.OrderStatusEnum;
 import com.jairoguo.order.dto.OrderDTO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.function.Consumer;
 
 /**
@@ -24,7 +26,7 @@ public class OrderSubscribe {
 
         return orderDTO -> {
             Order order = Order.create();
-            // order.setGoodsId(orderDTO.specsAttributeId());
+            order.setGoodsId(orderDTO.goodsId());
             order.setSpecsAttributeId(orderDTO.specsAttributeId());
             if (orderDTO.total() == null) {
                 order.setTotalNum(1L);
@@ -33,6 +35,8 @@ public class OrderSubscribe {
             }
             order.setUserId(orderDTO.userId());
             order.setPrice(orderDTO.price());
+            order.setStatus(OrderStatusEnum.UNPAID);
+            order.setCreateOrderTime(LocalDateTime.now());
             orderApplicationService.createOrder(order);
         };
 

@@ -1,6 +1,10 @@
 package com.jairoguo.order.application.service;
 
+import com.jairoguo.common.param.PageParam;
+import com.jairoguo.common.result.PageResultBody;
 import com.jairoguo.order.domain.model.aggregate.Order;
+import com.jairoguo.order.domain.model.entity.id.OrderNumber;
+import com.jairoguo.order.domain.repository.OrderRepository;
 import com.jairoguo.order.domain.service.OrderDomainService;
 import com.jairoguo.order.infra.api.AuthApiService;
 import com.jairoguo.order.infra.api.GoodsApiService;
@@ -27,6 +31,9 @@ public class OrderApplicationService {
     private OrderDomainService orderDomainService;
 
     @Resource
+    private OrderRepository orderRepository;
+
+    @Resource
     private RedisKey redisKey;
 
     @Resource
@@ -44,5 +51,19 @@ public class OrderApplicationService {
         goodsApiService.deductions(order.getSpecsAttributeId(), order.getTotalNum());
 
 
+    }
+
+    public Order getOrder(Long orderId, Long orderNumber) {
+        OrderNumber orderNumberObj = OrderNumber.newInstance();
+        orderNumberObj.setOrderNumber(orderNumber);
+        orderNumberObj.setId(orderId);
+        return orderRepository.findById(orderNumberObj);
+    }
+
+    public PageResultBody<Order> getOrderList(PageParam param) {
+        Order order = Order.create();
+        authApiService.checkLogIn();
+        order.setUserId(authApiService.getUserId());
+        return orderRepository.list(param, order);
     }
 }

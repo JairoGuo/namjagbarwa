@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * @author Jairo Guo
@@ -44,6 +45,13 @@ public class Order implements AggregateRoot<OrderNumber> {
      * 订单状态
      */
     private OrderStatusEnum status;
+    /**
+     * 下单时间
+     */
+    private LocalDateTime createOrderTime;
+    private LocalDateTime payTime;
+
+    private String payType;
 
 
     public void calculatePrice() {
