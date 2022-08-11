@@ -16,6 +16,7 @@
         <module>goods</module>
         <module>order</module>
         <module>seckill</module>
+        <module>seller</module>
     </modules>
 
     <properties>
