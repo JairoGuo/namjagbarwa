@@ -83,6 +83,7 @@ public class GlobalExceptionHandler {
                 .code(ResultCodeEnum.INFO.getCode())
                 .msg("参数校验错误")
                 .info(message)
+                .success(false)
                 .build();
     }
 
@@ -101,6 +102,7 @@ public class GlobalExceptionHandler {
                 .code(ResultCodeEnum.INFO.getCode())
                 .msg("参数校验错误")
                 .info(errors)
+                .success(false)
                 .build();
 
 
