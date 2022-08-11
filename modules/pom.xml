@@ -18,6 +18,7 @@
         <module>storage</module>
         <module>auth</module>
         <module>shop</module>
+        <module>pay</module>
     </modules>
 
     <properties>
