@@ -1,5 +1,7 @@
 package com.jairoguo.goods.vo;
 
+import lombok.Builder;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,8 +9,10 @@ import java.math.BigDecimal;
  *
  * @author Jairo Guo
  */
+@Builder
 public record SpecsAttributeVO(
         Long goodsId,
+        Long specsId,
 
         /**
          * 商品属性索引值 (attr_value|attr_value[|....])

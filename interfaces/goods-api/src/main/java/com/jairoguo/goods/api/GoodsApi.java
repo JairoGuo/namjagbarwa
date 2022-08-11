@@ -21,6 +21,9 @@ public interface GoodsApi {
     @PostMapping("/goods/deductions/{id}/{count}")
     void deductions(@PathVariable("id") Long id, @PathVariable("count") Long count);
 
+    @PostMapping("goods/returnStock/{specsId}/{count}")
+    void returnStock(@PathVariable("specsId") Long specsId, @PathVariable("count") Long count);
+
     @PostMapping("/specs/get")
     SpecsAttributeVO getSpecsAttribute(@RequestBody GoodsNumberDTO goodsNumberDTO);
 }
