@@ -15,6 +15,7 @@
         <module>database-core</module>
         <module>redis-core</module>
         <module>validated-core</module>
+        <module>feign-core</module>
     </modules>
 
     <properties>
