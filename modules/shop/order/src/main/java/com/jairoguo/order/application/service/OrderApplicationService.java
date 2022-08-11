@@ -2,6 +2,7 @@ package com.jairoguo.order.application.service;
 
 import com.jairoguo.common.param.PageParam;
 import com.jairoguo.common.result.PageResultBody;
+import com.jairoguo.order.application.event.publish.OrderPayPublish;
 import com.jairoguo.order.domain.model.aggregate.Order;
 import com.jairoguo.order.domain.model.entity.id.OrderNumber;
 import com.jairoguo.order.domain.repository.OrderRepository;
@@ -39,6 +40,10 @@ public class OrderApplicationService {
     @Resource
     private RedisUtils redisUtils;
 
+    @Resource
+    private OrderPayPublish orderPayPublish;
+
+
     @Transactional
     public void createOrder(Order order) {
 
@@ -50,6 +55,7 @@ public class OrderApplicationService {
         // 通知商品减库存
         goodsApiService.deductions(order.getSpecsAttributeId(), order.getTotalNum());
 
+        orderPayPublish.initPay(order);
 
     }
 

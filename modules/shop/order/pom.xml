@@ -22,6 +22,11 @@
 
         <dependency>
             <groupId>com.jairoguo</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
             <artifactId>handler</artifactId>
         </dependency>
 

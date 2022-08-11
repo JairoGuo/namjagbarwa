@@ -2,6 +2,7 @@ package com.jairoguo.order.domain.service.impl;
 
 import com.jairoguo.order.domain.model.aggregate.Order;
 import com.jairoguo.order.domain.model.entity.id.OrderNumber;
+import com.jairoguo.order.domain.model.value.OrderStatusEnum;
 import com.jairoguo.order.domain.repository.OrderRepository;
 import com.jairoguo.order.domain.service.OrderDomainService;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class OrderDomainServiceImpl implements OrderDomainService {
         order.setOrderNumber(orderNumber);
 
         orderRepository.save(order);
+
+    }
+
+    @Override
+    public void markOrderStatus(OrderNumber orderNumber, OrderStatusEnum orderStatus) {
 
     }
 }

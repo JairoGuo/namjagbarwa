@@ -1,6 +1,7 @@
 package com.jairoguo.order.infra.repository.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jairoguo.common.param.PageParam;
 import com.jairoguo.common.result.PageResult;
@@ -27,18 +28,33 @@ public class OrderRepositoryImpl implements OrderRepository {
     private OrderMapper orderMapper;
 
 
-
     @Override
     public Boolean save(Order aggregate) {
         OrderPO orderPO = OrderRepositoryConvert.convertToOrderPO(aggregate);
-        return orderMapper.insert(orderPO) != 0;
+        int insert = orderMapper.insert(orderPO);
+        if (insert != 0) {
+            aggregate.getOrderNumber().setId(orderPO.getId());
+            return true;
+        }
+
+        return false;
+
     }
 
     @Override
     public Order findById(OrderNumber id) {
         QueryWrapper<OrderPO> orderPOQueryWrapper = new QueryWrapper<>();
-        orderPOQueryWrapper.lambda()
-                .eq(OrderPO::getOrderNumber, id.getOrderNumber());
+
+        if (id.getOrderNumber() != null) {
+            orderPOQueryWrapper.lambda()
+                    .eq(OrderPO::getOrderNumber, id.getOrderNumber());
+        }
+
+        if (id.getId() != null) {
+            orderPOQueryWrapper.lambda()
+                    .eq(OrderPO::getId, id.getId());
+        }
+
 
         OrderPO orderPO = orderMapper.selectOne(orderPOQueryWrapper);
         return OrderRepositoryConvert.convertToOrder(orderPO);
@@ -51,7 +67,18 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Boolean update(Order aggregate) {
-        return null;
+        Long orderId;
+        OrderPO orderPO = OrderRepositoryConvert.convertToOrderPO(aggregate);
+        if ((orderId = aggregate.getOrderNumber().getId()) != null) {
+            orderPO.setId(orderId);
+            return orderMapper.updateById(orderPO) > 0;
+
+        } else {
+            UpdateWrapper<OrderPO> orderPOUpdateWrapper = new UpdateWrapper<>();
+            orderPOUpdateWrapper.lambda()
+                    .eq(OrderPO::getSpecsId, aggregate.getSpecsAttributeId());
+            return orderMapper.update(orderPO, orderPOUpdateWrapper) > 0;
+        }
     }
 
 

@@ -39,5 +39,10 @@ public enum OrderStatusEnum {
     /**
      * 订单完成
      */
-    COMPLETED
+    COMPLETED,
+    /**
+     * 订单取消
+     */
+    CANCEL
+
 }

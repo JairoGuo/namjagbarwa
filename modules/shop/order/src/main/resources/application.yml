@@ -41,8 +41,20 @@ spring:
         default-sharding-column: id
   cloud:
     function:
-      definition: placeOrder
+      definition: placeOrder;orderPayStatus
     stream:
       bindings:
         placeOrder-in-0:
           destination: place-order
+        orderPayStatus-out-0:
+          destination: pay-queue
+        orderPayStatus-in-0:
+          destination: pay-queue
+      rabbit:
+        bindings:
+          orderPayStatus-out-0:
+            producer:
+              delayed-exchange: true
+          orderPayStatus-in-0:
+            consumer:
+              delayed-exchange: true
