@@ -12,6 +12,7 @@ import com.jairoguo.goods.vo.GoodsVO;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -30,13 +31,18 @@ public class GoodsController {
      * @param goodsDTO 商品信息
      */
     @PostMapping("add")
-    public void add(@RequestBody GoodsDTO goodsDTO) {
+    public void add(@RequestBody @Valid GoodsDTO goodsDTO) {
         Goods goods = GoodsConvert.convertToGoods(goodsDTO);
         GoodsBO goodsBO = GoodsBO.builder().goods(goods).build();
         goodsApplicationService.addGoods(goodsBO);
 
     }
 
+    /**
+     * 获取商品信息
+     * @param goodsNumberDTO 商品号
+     * @return 商品信息
+     */
     @PostMapping("get")
     public GoodsVO getGoods(@RequestBody GoodsNumberDTO goodsNumberDTO) {
         Goods goods = goodsApplicationService.getGoods(goodsNumberDTO.id(), goodsNumberDTO.number());
@@ -49,6 +55,11 @@ public class GoodsController {
         return GoodsToVO.convertToGoodsList(goodsApplicationService.goodsList());
     }
 
+    /**
+     * 扣减库存
+     * @param id 商品id
+     * @param count 扣减数量
+     */
     @PostMapping("deductions/{id}/{count}")
     public void deductions(@PathVariable Long id, @PathVariable Long count) {
         goodsApplicationService.deductions(id, count);
@@ -58,5 +69,12 @@ public class GoodsController {
     public void buy(@RequestBody BuyDTO buyDTO) {
         goodsApplicationService.buy(buyDTO.goodsId(), buyDTO.specsAttributeId(), buyDTO.number());
     }
+
+
+    @PostMapping("returnStock/{specsId}/{count}")
+    public void returnStock(@PathVariable Long specsId, @PathVariable Long count) {
+        goodsApplicationService.returnStock(specsId, count);
+    }
+
 
 }

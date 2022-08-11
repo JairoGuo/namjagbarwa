@@ -28,11 +28,11 @@ public class GoodsConvert {
         result.setCover(item.cover());
         result.setIntroduction(item.introduction());
         Specs specs = Specs.create();
-        specs.setMultiSpecs(false);
-        SpecsAttribute specsAttribute = convertToSpecsAttribute(item.specsAttribute());
-        SpecsAttribute[] specsAttributes = {specsAttribute};
-        specs.setSpecsAttributeList(List.of(specsAttributes));
+        specs.setMultiSpecs(item.multiSpecs());
+        List<SpecsAttribute> specsAttributesList = item.specsAttributeList().stream().map(GoodsConvert::convertToSpecsAttribute).toList();
+        specs.setSpecsAttributeList(specsAttributesList);
         result.setSpecs(specs);
+        result.setStoreId(item.storeId());
         return result;
     }
 

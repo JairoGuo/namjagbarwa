@@ -46,7 +46,7 @@ public class Goods implements AggregateRoot<GoodsNumber> {
     /**
      * 店铺id
      */
-    private String storeId;
+    private Long storeId;
     /**
      * 关键字
      */

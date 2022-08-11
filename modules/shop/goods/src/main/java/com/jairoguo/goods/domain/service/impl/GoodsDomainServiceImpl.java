@@ -29,4 +29,12 @@ public class GoodsDomainServiceImpl implements GoodsDomainService {
 
         goodsRepository.deductions(goodsNumber, count);
     }
+
+    @Override
+    public void increaseStock(Long specsAttributeId, Long count) {
+        GoodsNumber goodsNumber = GoodsNumber.newInstance();
+        goodsNumber.setSpecsAttributeId(specsAttributeId);
+
+        goodsRepository.increase(goodsNumber, count);
+    }
 }

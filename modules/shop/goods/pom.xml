@@ -22,12 +22,22 @@
 
         <dependency>
             <groupId>com.jairoguo</groupId>
+            <artifactId>config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
             <artifactId>handler</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.jairoguo</groupId>
             <artifactId>database-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jairoguo</groupId>
+            <artifactId>validated-core</artifactId>
         </dependency>
 
         <dependency>

@@ -9,5 +9,7 @@ import lombok.Builder;
 
 @Builder
 public record GoodsBO(
-        Goods goods) {
+        Goods goods,
+        Long storeId
+) {
 }

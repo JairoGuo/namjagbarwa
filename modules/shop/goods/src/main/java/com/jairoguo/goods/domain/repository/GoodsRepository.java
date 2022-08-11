@@ -20,4 +20,6 @@ public interface GoodsRepository extends Repository<Goods, GoodsNumber> {
     void deductions(GoodsNumber goodsNumber, Long count);
 
     SpecsAttribute getSpecs(GoodsNumber goodsNumber);
+
+    void increase(GoodsNumber goodsNumber, Long count);
 }

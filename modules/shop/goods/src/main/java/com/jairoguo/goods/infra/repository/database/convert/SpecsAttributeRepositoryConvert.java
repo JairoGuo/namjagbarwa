@@ -1,6 +1,7 @@
 package com.jairoguo.goods.infra.repository.database.convert;
 
 import com.jairoguo.goods.domain.model.entity.SpecsAttribute;
+import com.jairoguo.goods.domain.model.entity.id.GoodsNumber;
 import com.jairoguo.goods.domain.model.value.Price;
 import com.jairoguo.goods.infra.repository.database.po.SpecsAttributePO;
 
@@ -15,6 +16,10 @@ public class SpecsAttributeRepositoryConvert {
             return null;
         }
         SpecsAttribute result = new SpecsAttribute();
+        GoodsNumber goodsNumber = GoodsNumber.newInstance();
+        goodsNumber.setSpecsAttributeId(item.getId());
+        goodsNumber.setId(item.getGoodsId());
+        result.setGoodsNumber(goodsNumber);
         result.setStock(item.getStock());
         result.setGoodsId(item.getGoodsId());
         result.setCost(item.getCostPrice());

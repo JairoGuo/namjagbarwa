@@ -49,4 +49,9 @@ public class GoodsRepositoryJpaImpl implements GoodsRepository {
     public SpecsAttribute getSpecs(GoodsNumber goodsNumber) {
         return null;
     }
+
+    @Override
+    public void increase(GoodsNumber goodsNumber, Long count) {
+
+    }
 }

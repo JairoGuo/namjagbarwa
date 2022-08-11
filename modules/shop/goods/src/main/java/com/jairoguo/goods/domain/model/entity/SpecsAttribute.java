@@ -14,6 +14,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class SpecsAttribute implements Entity<GoodsNumber> {
+    private GoodsNumber goodsNumber;
     private Long goodsId;
 
     /**

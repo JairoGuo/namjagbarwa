@@ -45,8 +45,16 @@ public class GoodsToVO {
         if (item == null) {
             return null;
         }
-        return new SpecsAttributeVO(item.getGoodsId(), item.getSku(), item.getStock(), item.getSales(),
-                convertToPriceVO(item.getPrice()), item.getImage(), item.getCost());
+        return SpecsAttributeVO.builder()
+                .goodsId(item.getGoodsId())
+                .specsId(item.getGoodsNumber().getSpecsAttributeId())
+                .sku(item.getSku())
+                .stock(item.getStock())
+                .sales(item.getSales())
+                .price(convertToPriceVO(item.getPrice()))
+                .image(item.getImage())
+                .cost(item.getCost())
+                .build();
     }
 
     public static PriceVO convertToPriceVO(Price item) {

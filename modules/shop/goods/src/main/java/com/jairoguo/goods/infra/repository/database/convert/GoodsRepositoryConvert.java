@@ -24,8 +24,10 @@ public class GoodsRepositoryConvert {
         GoodsPO result = new GoodsPO();
         result.setGoodsNumber(item.getGoodsNumber().getNumber());
         result.setName(item.getName());
+        result.setStoreId(item.getStoreId());
         result.setIntroduction(item.getIntroduction());
         result.setCover(item.getCover());
+        result.setStoreId(item.getStoreId());
         return result;
     }
 

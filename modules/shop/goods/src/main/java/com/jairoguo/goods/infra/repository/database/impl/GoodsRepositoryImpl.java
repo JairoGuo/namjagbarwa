@@ -136,8 +136,20 @@ public class GoodsRepositoryImpl implements GoodsRepository {
         UpdateWrapper<SpecsAttributePO> specsAttributePOUpdateWrapper = new UpdateWrapper<>();
         specsAttributePOUpdateWrapper.lambda()
                 .eq(SpecsAttributePO::getId, goodsNumber.getSpecsAttributeId())
-                // .ge(SpecsAttributePO::getStock, count)
+                .ge(SpecsAttributePO::getStock, count)
                 .setSql("stock = stock - " + count);
+
+        SpecsAttributePO specsAttributePO = new SpecsAttributePO();
+
+        specsAttributeMapper.update(specsAttributePO, specsAttributePOUpdateWrapper);
+    }
+
+    @Override
+    public void increase(GoodsNumber goodsNumber, Long count) {
+        UpdateWrapper<SpecsAttributePO> specsAttributePOUpdateWrapper = new UpdateWrapper<>();
+        specsAttributePOUpdateWrapper.lambda()
+                .eq(SpecsAttributePO::getId, goodsNumber.getSpecsAttributeId())
+                .setSql("stock = stock + " + count);
 
         SpecsAttributePO specsAttributePO = new SpecsAttributePO();
 

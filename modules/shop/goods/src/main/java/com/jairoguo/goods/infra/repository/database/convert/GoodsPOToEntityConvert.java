@@ -42,7 +42,10 @@ public class GoodsPOToEntityConvert {
 
     public static SpecsAttribute convertToSpecsAttribute(SpecsAttributePO specsAttributePO) {
         SpecsAttribute specsAttribute = new SpecsAttribute();
-
+        GoodsNumber goodsNumber = GoodsNumber.newInstance();
+        goodsNumber.setSpecsAttributeId(specsAttributePO.getId());
+        goodsNumber.setId(specsAttributePO.getGoodsId());
+        specsAttribute.setGoodsNumber(goodsNumber);
         specsAttribute.setGoodsId(specsAttributePO.getGoodsId());
         Price price = new Price();
         price.setSellPrice(specsAttributePO.getSellPrice());

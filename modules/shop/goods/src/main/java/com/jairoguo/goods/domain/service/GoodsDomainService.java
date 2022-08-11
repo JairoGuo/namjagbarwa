@@ -11,4 +11,6 @@ public interface GoodsDomainService extends DomainService {
 
     void deductions(Long specsAttributeId, Long count);
 
+    void increaseStock(Long specsAttributeId, Long count);
+
 }

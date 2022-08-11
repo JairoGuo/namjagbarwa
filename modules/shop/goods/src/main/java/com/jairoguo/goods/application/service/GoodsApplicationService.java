@@ -48,7 +48,11 @@ public class GoodsApplicationService {
     @Transactional
     public void addGoods(GoodsBO goodsBO) {
 
-        goodsDomainService.createGoods(goodsBO.goods());
+        Goods goods = goodsBO.goods();
+
+        goods.setStoreId(goodsBO.storeId());
+
+        goodsDomainService.createGoods(goods);
 
     }
 
@@ -73,6 +77,13 @@ public class GoodsApplicationService {
         goodsDomainService.deductions(specsAttributeId, count);
 
     }
+
+    public void returnStock(Long specsAttributeId, Long count) {
+        goodsDomainService.increaseStock(specsAttributeId, count);
+
+    }
+
+
 
     public void buy(Long goodsId, Long specsAttributeId, Long number) {
         Boolean isLogin = authApiService.isLogin();
