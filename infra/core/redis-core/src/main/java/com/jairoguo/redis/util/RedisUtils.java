@@ -124,4 +124,25 @@ public class RedisUtils {
         return redisTemplate.execute(redisScript, keys, args);
 
     }
+
+    public Boolean lock(String key) {
+        return lock(key, 30L, TimeUnit.SECONDS);
+    }
+
+    public Boolean lock(String key, Long time) {
+        return lock(key, time, TimeUnit.MILLISECONDS);
+    }
+
+    public Boolean lock(String key, Long time, TimeUnit timeUnit) {
+        Long result = execute("lock.lua", Collections.singletonList(key), Long.class,
+                Thread.currentThread().getId(),
+                timeUnit.convert(time, timeUnit));
+        return result != null && result.intValue() == 1;
+    }
+
+    public Boolean unlock(String key) {
+        execute("unlock.lua", Collections.singletonList(key), Long.class,
+                Thread.currentThread().getId());
+        return true;
+    }
 }
