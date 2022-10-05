@@ -1,6 +1,8 @@
 package com.jairoguo.redis.util;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.stereotype.Component;
@@ -92,6 +94,28 @@ public class RedisUtils {
         redisTemplate.opsForValue().decrement(key, delta);
     }
 
+    public boolean setBit(String key, long offset, boolean value) {
+        return Boolean.TRUE.equals(redisTemplate.opsForValue().setBit(key, offset, value));
+    }
+
+    public boolean getBit(String key, long offset) {
+        return Boolean.TRUE.equals(redisTemplate.opsForValue().getBit(key, offset));
+    }
+
+    public Long bitCount(String key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes()));
+    }
+
+    public List<Long> bitField(String key, int bits, long offset) {
+        return redisTemplate.execute(
+                (RedisCallback<List<Long>>) connection ->
+                        connection.bitField(
+                                key.getBytes(),
+                                BitFieldSubCommands
+                                        .create()
+                                        .get(BitFieldSubCommands.BitFieldType.unsigned(bits))
+                                        .valueAt(offset)));
+    }
 
     public <T> void setIfAbsent(String key, T value, Long time, TimeUnit timeUnit) {
         redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit);
@@ -134,15 +158,12 @@ public class RedisUtils {
     }
 
     public Boolean lock(String key, Long time, TimeUnit timeUnit) {
-        Long result = execute("lock.lua", Collections.singletonList(key), Long.class,
-                Thread.currentThread().getId(),
-                timeUnit.convert(time, timeUnit));
+        Long result = execute("lock.lua", Collections.singletonList(key), Long.class, Thread.currentThread().getId(), timeUnit.convert(time, timeUnit));
         return result != null && result.intValue() == 1;
     }
 
     public Boolean unlock(String key) {
-        execute("unlock.lua", Collections.singletonList(key), Long.class,
-                Thread.currentThread().getId());
+        execute("unlock.lua", Collections.singletonList(key), Long.class, Thread.currentThread().getId());
         return true;
     }
 }
